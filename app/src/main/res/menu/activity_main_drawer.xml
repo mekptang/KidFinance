@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_achievement"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="ACHIEVEMENT" />
+        <item
+            android:id="@+id/nav_award"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="AWARD" />
+        <item
+            android:id="@+id/nav_progress"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="PROGRESS" />
+        <item
+            android:id="@+id/nav_record"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="RECORDS" />
+        <item
+            android:id="@+id/nav_setTarget"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="SET TARGET" />
+        <item
+            android:id="@+id/nav_incomeExpense"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="INCOME/EXPENSE" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="SETTING" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>
