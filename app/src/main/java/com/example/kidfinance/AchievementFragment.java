@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class AchievementFragment extends Fragment {
-    //cm
-    private Button abc;
+
+    //private Button abc;
 
     @Nullable
     @Override
@@ -23,13 +23,14 @@ public class AchievementFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle saveInstanceState){
         super.onViewCreated(view, saveInstanceState);
 
-        abc= (Button)view.findViewById(R.id.button);
-        abc.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v){
-                efg(v);}
-        });
+//        abc= (Button)view.findViewById(R.id.button);
+//
+//        abc.setOnClickListener(new View.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View v){
+//                efg(v);}
+//        });
 
     }
     public void efg(View view){
