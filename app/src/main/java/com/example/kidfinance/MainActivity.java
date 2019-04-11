@@ -14,31 +14,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment()).commit();
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -49,7 +32,8 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else {
             super.onBackPressed();
         }
     }
@@ -84,21 +68,29 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_achievement) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment()).commit();
-        } else if (id == R.id.nav_award) {
+        }
+        else if (id == R.id.nav_award) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AwardFragment()).commit();
-        } else if (id == R.id.nav_progress) {
+        }
+        else if (id == R.id.nav_progress) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProgessFragment()).commit();
-        } else if (id == R.id.nav_record) {
+        }
+        else if (id == R.id.nav_record) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecordFragment()).commit();
-        } else if (id == R.id.nav_setTarget) {
+        }
+        else if (id == R.id.nav_setTarget) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SetTargetFragment()).commit();
-        } else if (id == R.id.nav_incomeExpense) {
+        }
+        else if (id == R.id.nav_incomeExpense) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new IncomeExpenseFragment()).commit();
-        }else if (id == R.id.nav_setting) {
+        }
+        else if (id == R.id.nav_setting) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingFragment()).commit();
-        }else if (id == R.id.nav_share) {
+        }
+        else if (id == R.id.nav_share) {
             Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
-        }else if (id == R.id.nav_send) {
+        }
+        else if (id == R.id.nav_send) {
             Toast.makeText(this, "Send", Toast.LENGTH_SHORT).show();
         }
 
