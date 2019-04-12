@@ -115,7 +115,7 @@ public class AchievementFragment extends Fragment {
                 TextView textView = (TextView) gridView.findViewById(R.id.grid_item_label);
                 textView.setText("JEFF");
 
-                // POOR WAY TO DO THAT JUST FOR TESTING, I WILl CHANGE LATER
+                // POOR WAY TO DO THAT JUST FOR TESTING, I WILl CHANGE LATER!
                 gridView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
