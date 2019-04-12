@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@drawable/bg"
+        android:background="@drawable/achievement_bg"
         android:weightSum="10"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,9 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
 
-            <TextView
+            <ImageView
                 android:id="@+id/textGrid"
-                android:text="ACHIEVEMENTS"
+                android:src="@drawable/achievement_word"
                 android:textSize="34sp"
                 android:textColor="@android:color/white"
                 android:layout_centerInParent="true"

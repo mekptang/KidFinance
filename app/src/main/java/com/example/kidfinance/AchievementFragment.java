@@ -43,7 +43,7 @@ public class AchievementFragment extends Fragment {
         mainGrid.setAdapter(new GridAdapter(getContext(), GRID_DATA));
 
         // Set Event
-        // setSingleEvent(mainGrid);
+        // setToggleEvent(mainGrid);
     }
 
     private void setToggleEvent(GridLayout mainGrid) {
@@ -111,10 +111,11 @@ public class AchievementFragment extends Fragment {
                 // set text and image based on selected text
                 // String arrLabel = gridValues[ position ];
                 ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
-                imageView.setImageResource(R.drawable.friends);
+                imageView.setImageResource(R.drawable.achievement_friends);
                 TextView textView = (TextView) gridView.findViewById(R.id.grid_item_label);
                 textView.setText("JEFF");
 
+                // POOR WAY TO DO THAT JUST FOR TESTING, I WILl CHANGE LATER
                 gridView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
