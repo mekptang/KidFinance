@@ -31,7 +31,7 @@
 
         <GridView
             android:id="@+id/mainGrid"
-            android:numColumns="2"
+            android:numColumns="3"
             android:alignmentMode="alignMargins"
             android:columnOrderPreserved="false"
             android:layout_weight="8"
