@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/item_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/target_blue_juice" />
+
+    <ImageButton
+        android:id="@+id/plus_item"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:scaleType="fitXY"
+        android:layout_toRightOf="@id/item_logo"
+        android:src="@drawable/target_plus"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/item_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="25dp"
+        android:layout_toRightOf="@id/plus_item"
+        android:text="TextView"
+        android:textSize="30sp"
+        tools:text="0" />
+
+    <ImageButton
+        android:id="@+id/minus_item"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:scaleType="fitXY"
+        android:layout_toRightOf="@id/item_count"
+        android:src="@drawable/target_minus"
+        android:background="@null"/>
+
+    <ImageButton
+        android:id="@+id/item_cancel"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="40dp"
+        android:scaleType="fitXY"
+        android:layout_toRightOf="@id/minus_item"
+        android:src="@drawable/target_cross"
+        android:background="@null"/>
+
+</RelativeLayout>
