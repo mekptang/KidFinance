@@ -26,19 +26,19 @@ public class SetTargetFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_target, container, false);
 
         ImageButton add_award = (ImageButton)view.findViewById(R.id.add_award);
-        ImageButton set_next = (ImageButton)view.findViewById(R.id.add_award);
+        ImageButton set_next = (ImageButton)view.findViewById(R.id.set_next);
 
         add_award.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getContext(), "add_award", Toast.LENGTH_SHORT).show();
             }
         });
 
         set_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getContext(), "set_next", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -67,6 +67,7 @@ public class SetTargetFragment extends Fragment {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
+
                 viewHolder.item_logo = (ImageView) convertView.findViewById(R.id.item_logo);
                 viewHolder.item_count = (TextView) convertView.findViewById(R.id.item_count);
                 viewHolder.plus_item = (ImageButton) convertView.findViewById(R.id.plus_item);
