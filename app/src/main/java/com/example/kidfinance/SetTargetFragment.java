@@ -24,6 +24,24 @@ public class SetTargetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
         View view = inflater.inflate(R.layout.fragment_target, container, false);
+
+        ImageButton add_award = (ImageButton)view.findViewById(R.id.add_award);
+        ImageButton set_next = (ImageButton)view.findViewById(R.id.add_award);
+
+        add_award.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        set_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         ListView lv = (ListView) view.findViewById(R.id.target_item_list);
         generateListContent();
         lv.setAdapter(new MyListAdapter(getContext(), R.layout.item_list_set_target, data));
