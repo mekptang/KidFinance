@@ -44,7 +44,7 @@ public class SetTargetFragment extends Fragment {
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
-            ViewHolder mainViewHolder = null;
+
             if(convertView == null){
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
@@ -75,11 +75,6 @@ public class SetTargetFragment extends Fragment {
                 });
 
                 convertView.setTag(viewHolder);
-
-            }else{
-
-                mainViewHolder = (ViewHolder) convertView.getTag();
-
             }
 
             return convertView;

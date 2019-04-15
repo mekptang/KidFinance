@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingRight="16dp"
+    android:layout_weight="10"
+    >
 
 
     <ImageView
         android:id="@+id/title_set_target"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
+        android:layout_width="match_parent"
+        android:layout_height="196dp"
         android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
         android:background="@null"
         android:scaleType="centerInside"
         android:src="@drawable/target_set_target_word" />
@@ -37,25 +37,20 @@
             android:src="@drawable/target_add_award" />
     </RelativeLayout>
 
-    <RelativeLayout android:id="@+id/RelativeLayout02"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android">
     <ListView
         android:id="@+id/target_item_list"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        />
-    </RelativeLayout>
+        android:maxHeight="250dp"
+        android:layout_height="250dp"/>
 
     <ImageButton
         android:id="@+id/set_next"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:background="@null"
-        android:scaleType="fitCenter"
+        android:scaleType="centerInside"
         android:src="@drawable/target_next_button" />
 
 
