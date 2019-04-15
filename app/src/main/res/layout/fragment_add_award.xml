@@ -28,7 +28,7 @@
         android:layout_height="250dp"
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/target_red_juice"/>
+        android:src="@drawable/target_red_juice"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -41,14 +41,14 @@
         android:id="@+id/item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:ems="10"
+        android:hint="Item Nane"
         android:inputType="textPersonName"
-        android:text="Item Name"
-        android:textSize="24sp"
-        android:layout_marginBottom="30dp"/>
+        android:textSize="24sp" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/sendback_award"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#424242"
