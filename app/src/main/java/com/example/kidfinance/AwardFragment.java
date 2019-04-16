@@ -46,6 +46,8 @@ public class AwardFragment extends Fragment {
         viewPager = view.findViewById(R.id.awardViewPager);
         adapter = new AwardAdapter(awards, getActivity());
         viewPager.setAdapter(adapter);
+        if (award_index != 0)
+            viewPager.setCurrentItem(award_index);
         viewPager.setPadding(130, 0, 130, 0);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
