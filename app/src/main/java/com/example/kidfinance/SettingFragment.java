@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 public class SettingFragment extends Fragment {
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState){
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         return inflater.inflate(R.layout.fragment_setting, container, false);
     }
 }

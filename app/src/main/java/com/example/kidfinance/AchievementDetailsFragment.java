@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class AchievementDetailsFragment extends Fragment {
 
@@ -49,8 +48,7 @@ public class AchievementDetailsFragment extends Fragment {
 
             if (achievement_completion == 1) {
                 completion_logo.setImageResource(R.drawable.achievement_success);
-            }
-            else {
+            } else {
                 completion_logo.setImageResource(0);
             }
         }

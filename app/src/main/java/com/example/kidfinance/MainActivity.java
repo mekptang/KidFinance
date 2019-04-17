@@ -1,15 +1,10 @@
 package com.example.kidfinance;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -32,8 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -68,29 +62,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_achievement) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment()).commit();
-        }
-        else if (id == R.id.nav_award) {
+        } else if (id == R.id.nav_award) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AwardFragment()).commit();
-        }
-        else if (id == R.id.nav_progress) {
+        } else if (id == R.id.nav_progress) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProgessFragment()).commit();
-        }
-        else if (id == R.id.nav_record) {
+        } else if (id == R.id.nav_record) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecordFragment()).commit();
-        }
-        else if (id == R.id.nav_setTarget) {
+        } else if (id == R.id.nav_setTarget) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SetTargetFragment()).commit();
-        }
-        else if (id == R.id.nav_incomeExpense) {
+        } else if (id == R.id.nav_incomeExpense) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new IncomeExpenseFragment()).commit();
-        }
-        else if (id == R.id.nav_setting) {
+        } else if (id == R.id.nav_setting) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingFragment()).commit();
-        }
-        else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_share) {
             Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
-        }
-        else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_send) {
             Toast.makeText(this, "Send", Toast.LENGTH_SHORT).show();
         }
 

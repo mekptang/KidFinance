@@ -1,8 +1,6 @@
 package com.example.kidfinance;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,23 +14,22 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class AchievementFragment extends Fragment {
     GridView mainGrid;
     AchievementInfo[] achievements;
 
     // Declare arrays to store achievement info + Store the information to AchievementInfo class (i.e. Object achievements)
-    int[] achievement_logo      =  {R.drawable.achievement_calendar, R.drawable.achievement_calendar, R.drawable.achievement_calendar,
-                                    R.drawable.achievement_family_time, R.drawable.achievement_family_time, R.drawable.achievement_family_time,
-                                    R.drawable.achievement_friends, R.drawable.achievement_friends, R.drawable.achievement_friends};
-    String[] achievement_title1  =  {"Achiever (LV1)", "Achiever (LV2)", "Achiever (LV3)", "Fighter (LV1)", "Fighter (LV2)", "Fighter (LV3)",
-                                    "General (LV1)", "General (LV2)", "General (LV3)"};
-    String[] achievement_title2  =  {"Achiever (LV1)", "Achiever (LV2)", "Achiever (LV3)", "Fighter (LV1)", "Fighter (LV2)", "Fighter (LV3)",
-                                    "General (LV1)", "General (LV2)", "General (LV3)"};
-    String[] achievement_info   =  {"Achiever (LV1)", "Achiever (LV2)", "Achiever (LV3)", "Fighter (LV1)", "Successfully Saved $10000!", "Fighter (LV3)",
-                                    " General (LV1)", "General (LV2)", "General (LV3)"};
-    int[] achievement_success    =  {1, 0, 0, 1, 1, 1, 0, 0, 0};
+    int[] achievement_logo = {R.drawable.achievement_calendar, R.drawable.achievement_calendar, R.drawable.achievement_calendar,
+            R.drawable.achievement_family_time, R.drawable.achievement_family_time, R.drawable.achievement_family_time,
+            R.drawable.achievement_friends, R.drawable.achievement_friends, R.drawable.achievement_friends};
+    String[] achievement_title1 = {"Achiever (LV1)", "Achiever (LV2)", "Achiever (LV3)", "Fighter (LV1)", "Fighter (LV2)", "Fighter (LV3)",
+            "General (LV1)", "General (LV2)", "General (LV3)"};
+    String[] achievement_title2 = {"Achiever (LV1)", "Achiever (LV2)", "Achiever (LV3)", "Fighter (LV1)", "Fighter (LV2)", "Fighter (LV3)",
+            "General (LV1)", "General (LV2)", "General (LV3)"};
+    String[] achievement_info = {"Achiever (LV1)", "Achiever (LV2)", "Achiever (LV3)", "Fighter (LV1)", "Successfully Saved $10000!", "Fighter (LV3)",
+            " General (LV1)", "General (LV2)", "General (LV3)"};
+    int[] achievement_success = {1, 0, 0, 1, 1, 1, 0, 0, 0};
     int achievement_length = achievement_logo.length;
 
     @Override
@@ -104,7 +101,7 @@ public class AchievementFragment extends Fragment {
         private final AchievementInfo[] achievements_info;
 
         // Constructor to initialize values
-        public GridAdapter(Context context, AchievementInfo[ ] achievements_info) {
+        public GridAdapter(Context context, AchievementInfo[] achievements_info) {
             this.context = context;
             this.achievements_info = achievements_info;
         }
@@ -146,8 +143,7 @@ public class AchievementFragment extends Fragment {
                     ImageView success = (ImageView) current_card.findViewById(R.id.achievement_success_image);
                     success.setImageResource(R.drawable.achievement_success);
                     current_card_inner.setCardBackgroundColor(Color.parseColor("#FFFFFF00"));
-                }
-                else {
+                } else {
                     ImageView success = (ImageView) current_card.findViewById(R.id.achievement_success_image);
                     success.setImageResource(0);
                     current_card_inner.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
