@@ -1,88 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    >
+
 
     <ImageView
-        android:id="@+id/setTarget"
-        android:layout_width="266dp"
-        android:layout_height="148dp"
-        android:layout_marginStart="141dp"
-        android:layout_marginLeft="141dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="142dp"
-        android:layout_marginRight="142dp"
-        android:layout_marginBottom="491dp"
-        android:src="@drawable/target_set_target_word"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/circle"
-        android:layout_width="273dp"
-        android:layout_height="177dp"
-        android:layout_marginStart="136dp"
-        android:layout_marginLeft="136dp"
-        android:src="@drawable/target_dc"
-        app:layout_constraintStart_toStartOf="@+id/setTarget"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/addAward"
-        android:layout_width="148dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/target_add_award"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setTarget"
-        app:layout_constraintVertical_bias="0.032" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="402dp"
-        android:layout_height="269dp"
+        android:id="@+id/title_set_target"
+        android:layout_width="wrap_content"
+        android:layout_height="154dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="144dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addAward">
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:layout_gravity="center"
+        android:src="@drawable/target_set_target_word" />
 
-        <LinearLayout
+    <RelativeLayout
+        android:id="@+id/RelativeLayout01"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_preview"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="155dp"
+            android:layout_marginRight="155dp"
+            android:src="@drawable/target_red_juice" />
+
+        <ImageButton
+            android:id="@+id/select_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/item"
+            android:layout_alignStart="@+id/item_preview"
+            android:layout_alignLeft="@+id/item_preview"
+            android:layout_marginStart="66dp"
+            android:layout_marginLeft="66dp"
+            android:layout_marginBottom="5dp"
+            android:background="@null"
+            android:elevation="2dp"
+            android:src="@drawable/ic_menu_camera"
+            android:text="Select" />
+
+        <ImageButton
+            android:id="@+id/item_insert"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_preview"
+            android:layout_alignEnd="@+id/select_item"
+            android:layout_alignRight="@+id/select_item"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="77dp"
+            android:layout_marginEnd="-17dp"
+            android:layout_marginRight="-17dp"
+            android:layout_marginBottom="10dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/target_add_award" />
+
+        <EditText
+            android:id="@+id/item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_below="@+id/item_preview"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName" />
 
-    </ScrollView>
+        <Button
+            android:id="@+id/target"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/item_insert"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_toStartOf="@+id/item_preview"
+            android:layout_toLeftOf="@+id/item_preview"
+            android:text="Set Target" />
+
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/target_item_list"
+        android:layout_width="match_parent"
+        android:layout_height="157dp"
+        android:background="@android:color/white"
+        android:maxHeight="250dp"
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.RecyclerView>
 
     <ImageButton
-        android:id="@+id/next"
-        android:layout_width="wrap_content"
-        android:layout_height="83dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginBottom="62dp"
+        android:id="@+id/set_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:adjustViewBounds="true"
         android:background="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/target_next_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        android:scaleType="centerInside"
+        android:src="@drawable/target_next_button" />
 
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>
