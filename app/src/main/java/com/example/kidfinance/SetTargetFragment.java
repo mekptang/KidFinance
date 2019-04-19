@@ -39,7 +39,6 @@ public class SetTargetFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManger;
     private View view;
 
-
     private ImageButton item_insert;
     private TextView item;
     private ImageButton select;
@@ -181,6 +180,7 @@ public class SetTargetFragment extends Fragment {
                 FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment());
                 ft.commit();
                 Toast.makeText(getContext(),"The New Target is "+target, Toast.LENGTH_LONG).show();
+
 //                String t = loadTextFile("kf_target_config.txt");
 //                Toast.makeText(getContext(),t, Toast.LENGTH_SHORT).show();
 //                intent.putExtra("LIST_OF_OBJECTS", listSerializedToJson);

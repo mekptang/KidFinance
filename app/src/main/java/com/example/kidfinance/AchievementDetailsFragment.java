@@ -16,7 +16,6 @@ import android.widget.TextView;
 public class AchievementDetailsFragment extends Fragment {
 
     Bundle bundle;
-    CardView current_card;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,8 @@ public class AchievementDetailsFragment extends Fragment {
 
             if (achievement_completion == 1) {
                 completion_logo.setImageResource(R.drawable.achievement_success);
-            } else {
+            }
+            else {
                 completion_logo.setImageResource(0);
             }
         }

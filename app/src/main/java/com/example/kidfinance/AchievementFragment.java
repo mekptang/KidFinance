@@ -1,72 +1,111 @@
 package com.example.kidfinance;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class AchievementFragment extends Fragment {
     GridView mainGrid;
-    AchievementInfo[] achievements;
-
-    // Declare arrays to store achievement info + Store the information to AchievementInfo class (i.e. Object achievements)
-    int[] achievement_logo = {R.drawable.achievement_calendar, R.drawable.achievement_calendar, R.drawable.achievement_calendar,
-            R.drawable.achievement_family_time, R.drawable.achievement_family_time, R.drawable.achievement_family_time,
-            R.drawable.achievement_friends, R.drawable.achievement_friends, R.drawable.achievement_friends};
-    String[] achievement_title1 = {"Achiever (LV1)", "Achiever (LV2)", "Achiever (LV3)", "Fighter (LV1)", "Fighter (LV2)", "Fighter (LV3)",
-            "General (LV1)", "General (LV2)", "General (LV3)"};
-    String[] achievement_title2 = {"Achiever (LV1)", "Achiever (LV2)", "Achiever (LV3)", "Fighter (LV1)", "Fighter (LV2)", "Fighter (LV3)",
-            "General (LV1)", "General (LV2)", "General (LV3)"};
-    String[] achievement_info = {"Achiever (LV1)", "Achiever (LV2)", "Achiever (LV3)", "Fighter (LV1)", "Successfully Saved $10000!", "Fighter (LV3)",
-            " General (LV1)", "General (LV2)", "General (LV3)"};
-    int[] achievement_success = {1, 0, 0, 1, 1, 1, 0, 0, 0};
-    int achievement_length = achievement_logo.length;
+    ArrayList<AchievementModel> achievements_list = new ArrayList<AchievementModel>();
+    String achievement_file_name = "achievement_list.txt";
 
     @Override
+    // Aim: To initialize achievements_list
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Store the achievement  information to AchievementInfo class (i.e. Object achievements)
-        achievements = new AchievementInfo[achievement_length];
+        if (fileExists(getContext(), achievement_file_name) == true) {
+            // If achievement_list.txt exists in local storage:
+            // Load the achievement information into achievements_list one by one
+            String json = loadTextFile(achievement_file_name);
+            JsonArray arr = new JsonParser().parse(json).getAsJsonArray();
 
-        for (int i = 0; i < achievement_length; i++) {
-            achievements[i] = new AchievementInfo(achievement_logo[i], achievement_title1[i], achievement_title2[i], achievement_info[i], achievement_success[i]);
+            for (JsonElement je : arr) {
+                JsonObject all = je.getAsJsonObject();
+                int card_logo = all.get("achievement_logo").getAsInt();
+                String achievement_title = all.get("achievement_title").getAsString();
+                String achievement_description = all.get("achievement_description").getAsString();
+                int achievement_success = all.get("achievement_success").getAsInt();
+
+                AchievementModel current_achievement = new AchievementModel(card_logo, achievement_title, achievement_description, achievement_success);
+                achievements_list.add(current_achievement);
+            }
+
+            Toast.makeText(getContext(),"Achievement File Loaded Successfully!", Toast.LENGTH_LONG).show();
+        }
+        else {
+            // If achievement_list.txt does not exist in local storage:
+            // Declare arrays to store achievement info + Store the information to achievements_list
+            int[] achievement_logo = {R.drawable.achievement_calendar, R.drawable.achievement_calendar, R.drawable.achievement_calendar,
+                    R.drawable.achievement_family_time, R.drawable.achievement_family_time, R.drawable.achievement_family_time,
+                    R.drawable.achievement_friends, R.drawable.achievement_friends, R.drawable.achievement_friends};
+            String[] achievement_title = {"Achiever (LV1)", "Achiever (LV2)", "Achiever (LV3)", "Fighter (LV1)", "Fighter (LV2)", "Fighter (LV3)",
+                    "General (LV1)", "General (LV2)", "General (LV3)"};
+            String[] achievement_description = {"Achiever (LV1)", "Achiever (LV2)", "Achiever (LV3)", "Fighter (LV1)", "Successfully Saved $10000!", "Fighter (LV3)",
+                    " General (LV1)", "General (LV2)", "General (LV3)"};
+            int[] achievement_success = {0, 0, 0, 0, 1, 0, 0, 0, 0};
+            int achievement_length = achievement_logo.length;
+
+            for (int i = 0; i < achievement_length; i++) {
+                AchievementModel current_achievement = new AchievementModel(achievement_logo[i], achievement_title[i], achievement_description[i], achievement_success[i]);
+                achievements_list.add(current_achievement);
+            }
+
+            // Create a default achievement file in local storage
+            String listSerializedToJson = new Gson().toJson(achievements_list);
+            writeToFile(listSerializedToJson, getContext(), achievement_file_name);
+
+            Toast.makeText(getContext(), "A default achievement file is created!", Toast.LENGTH_LONG).show();
         }
     }
 
     @Nullable
     @Override
+    // Aim: To set UI of achievement page
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         // Inflate fragment_achievement.xml
         View view_achievement = inflater.inflate(R.layout.fragment_achievement, container, false);
 
-        // Get gridview object from xml file + Set custom adapter (GridAdapter) to mainGrid
+        // Get gridview object from xml file + Set custom adapter (AchievementGridAdapter) to mainGrid
         mainGrid = (GridView) view_achievement.findViewById(R.id.achievement_mainGrid);
-        mainGrid.setAdapter(new GridAdapter(getContext(), achievements));
+        mainGrid.setAdapter(new AchievementGridAdapter(getContext(), achievements_list));
 
         return view_achievement;
     }
 
+    // Aim: To set functionality of achievements' buttons click
     public void onViewCreated(View view_achievement, Bundle savedInstanceState) {
         // Set item click listener to each button
         mainGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle info = new Bundle();
-                info.putInt("logo", achievements[position].card_logo);
-                info.putString("achievement_title", achievements[position].achievement_title);
-                info.putString("achievement_description", achievements[position].achievement_description);
-                info.putInt("achievement_completion", achievements[position].achievement_success);
+                info.putInt("logo", achievements_list.get(position).getAchievementLogo());
+                info.putString("achievement_title", achievements_list.get(position).getAchievementTitle());
+                info.putString("achievement_description", achievements_list.get(position).getAchievementDescription());
+                info.putInt("achievement_completion", achievements_list.get(position).getAchievementSuccess());
 
                 Fragment achievement_details = new AchievementDetailsFragment();
                 achievement_details.setArguments(info);
@@ -80,79 +119,52 @@ public class AchievementFragment extends Fragment {
         });
     }
 
-    public class AchievementInfo {
-        private int card_logo;
-        private String card_title;
-        private String achievement_title;
-        private String achievement_description;
-        private int achievement_success;
+    public boolean fileExists(Context context, String filename) {
+        File file = context.getFileStreamPath(filename);
 
-        public AchievementInfo(int logo, String title1, String title2, String description, int success) {
-            this.card_logo = logo;
-            this.card_title = title1;
-            this.achievement_title = title2;
-            this.achievement_description = description;
-            this.achievement_success = success;
+        if (file == null || !file.exists()) {
+            return false;
         }
+
+        return true;
     }
 
-    public static class GridAdapter extends BaseAdapter {
-        private Context context;
-        private final AchievementInfo[] achievements_info;
-
-        // Constructor to initialize values
-        public GridAdapter(Context context, AchievementInfo[] achievements_info) {
-            this.context = context;
-            this.achievements_info = achievements_info;
-        }
-
-        @Override
-        public int getCount() {
-            // Number of times getView method call depends upon achievements_info.length
-            return achievements_info.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        // Number of times getView method call depends upon achievements_info.length
-        public View getView(int position, View current_card, ViewGroup parent) {
-            // LayoutInflator to call external achievement_item.xml file
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            if (current_card == null) {
-                // get layout from grid_item.xml ( Defined Below achievements_info)
-                current_card = inflater.inflate(R.layout.achievement_item, null);
-                CardView current_card_inner = (CardView) current_card.findViewById(R.id.achievement_cardView);
-
-                // set text and image based on selected text
-                // String arrLabel = gridValues[ position ];
-                ImageView logo = (ImageView) current_card.findViewById(R.id.achievement_card_logo);
-                logo.setImageResource(achievements_info[position].card_logo);
-                TextView title = (TextView) current_card.findViewById(R.id.achievement_card_title);
-                title.setText(achievements_info[position].card_title);
-
-                if (achievements_info[position].achievement_success == 1) {
-                    ImageView success = (ImageView) current_card.findViewById(R.id.achievement_success_image);
-                    success.setImageResource(R.drawable.achievement_success);
-                    current_card_inner.setCardBackgroundColor(Color.parseColor("#FFFFFF00"));
-                } else {
-                    ImageView success = (ImageView) current_card.findViewById(R.id.achievement_success_image);
-                    success.setImageResource(0);
-                    current_card_inner.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
-                }
+    public String loadTextFile(String fileName)
+    {
+        String text = "";
+        try {
+            FileInputStream inStream = getContext().openFileInput(fileName);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int length = -1;
+            while((length = inStream.read(buffer))!=-1) {
+                stream.write(buffer,0,length);
             }
+            stream.close();
+            inStream.close();
+            text = stream.toString();
+            Toast.makeText(getContext(),"Loaded",Toast.LENGTH_LONG).show();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            return e.toString();
+        }
+        return text;
+    }
 
-            return current_card;
+    private void writeToFile(String data, Context context, String fileName) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(fileName, Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 }
+
 
 
