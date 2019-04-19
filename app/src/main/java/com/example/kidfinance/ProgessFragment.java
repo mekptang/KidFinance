@@ -11,6 +11,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,7 +38,7 @@ public class ProgessFragment extends Fragment {
         String tempVal = loadTextFile("kf_target_money_config.txt");
         if(tempVal != ""){
             targetValue = Integer.parseInt(tempVal);
-        }else{
+        }else {
             targetValue = 0;
         }
 

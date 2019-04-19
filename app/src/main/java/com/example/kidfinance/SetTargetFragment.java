@@ -49,9 +49,11 @@ public class SetTargetFragment extends Fragment {
 
     private static final int PICK_IMAGE = 100;
     private static final int PICK_TARGET = 200;
+    private static final int PICK_DESCRIPTION = 300;
     public Uri imageUri;
     private String imagePath;
-    private String target;
+    private String target = "0";
+    private static int pos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
@@ -83,10 +85,18 @@ public class SetTargetFragment extends Fragment {
         mAdapter.notifyDataSetChanged();
     }
 
+    public void changeItemDescription(int position, String description){
+        itemListSample.get(position).setDescription(description);
+        Toast.makeText(getContext(),itemListSample.get(position).getDescription(), Toast.LENGTH_SHORT).show();
+    }
+
     public void createItemListSample(){
         itemListSample = new ArrayList<>();
-
         //itemListSample.add(new ItemListSample(R.drawable.ic_menu_camera, "apple"));
+    }
+
+    public void getItemPosition(int position){
+        pos = position;
     }
 
     private void openGallery(){
@@ -115,7 +125,10 @@ public class SetTargetFragment extends Fragment {
         mAdapter.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //no use
+                Toast.makeText(getContext(),"Item clicked", Toast.LENGTH_SHORT).show();
+                getItemPosition(position);
+                Intent in = new Intent(getActivity(),ReturnDescriptionActivity.class);
+                startActivityForResult(in, PICK_DESCRIPTION);
             }
 
             @Override
@@ -175,6 +188,7 @@ public class SetTargetFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String listSerializedToJson = new Gson().toJson(itemListSample);
+//                Toast.makeText(getContext(), listSerializedToJson, Toast.LENGTH_LONG).show();
                 writeToFile(listSerializedToJson, getContext(), "kf_target_awardListJSON_config.txt");
                 writeToFile(target, getContext(), "kf_target_money_config.txt");
                 FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment());
@@ -183,9 +197,6 @@ public class SetTargetFragment extends Fragment {
 
 //                String t = loadTextFile("kf_target_config.txt");
 //                Toast.makeText(getContext(),t, Toast.LENGTH_SHORT).show();
-//                intent.putExtra("LIST_OF_OBJECTS", listSerializedToJson);
-//                Intent in = new Intent(getActivity(),ReturnTargetActivity.class);
-//                startActivity(intent);
             }
         });
     }
@@ -201,6 +212,9 @@ public class SetTargetFragment extends Fragment {
             String result = data.getExtras().getString("result");
             target = result;
             target_button.setText("Target:\n$" +target);
+        }else if(resultCode == RESULT_OK && requestCode == PICK_DESCRIPTION){
+            String result = data.getExtras().getString("result");
+            changeItemDescription(pos, result);
         }
     }
 
