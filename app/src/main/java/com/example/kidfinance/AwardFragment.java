@@ -1,6 +1,8 @@
 package com.example.kidfinance;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +17,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +41,27 @@ public class AwardFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
+
         awards = new ArrayList<>();
+
+        //new code by roy
+        String json = loadTextFile("kf_target_awardListJSON_config.txt");
+        JsonArray arr = new JsonParser().parse(json).getAsJsonArray();
+
+
+
+        //new code by roy
+        for (JsonElement je : arr) {
+            JsonObject all = je.getAsJsonObject();
+            String image = all.get("imageResource").getAsString();
+            String name = all.get("itemName").getAsString();
+            String amount = all.get("numberOfItem").getAsString();
+            String description = all.get("description").getAsString();
+
+            AwardModel am = new AwardModel(image, name, amount, description);
+            awards.add(am);
+        }
+
         awards.add(new AwardModel(R.drawable.award_hamburger, "Hamburger", "Have a nice burger for a treat!"));
         awards.add(new AwardModel(R.drawable.award_comic, "Comic Books", "Buy your favourite comic series."));
         awards.add(new AwardModel(R.drawable.award_disney, "Disney Trip", "Go to Disneyland for a nice day."));
@@ -75,6 +107,29 @@ public class AwardFragment extends Fragment {
             }
         });
     }
+    public String loadTextFile(String fileName)
+    {
+        String text = "";
+        try {
+            FileInputStream inStream = getContext().openFileInput(fileName);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int length = -1;
+            while((length = inStream.read(buffer))!=-1) {
+                stream.write(buffer,0,length);
+            }
+            stream.close();
+            inStream.close();
+            text = stream.toString();
+            Toast.makeText(getContext(),"Loaded",Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            return e.toString();
+        }
+        return text;
+    }
 }
 
 class AwardAdapter extends PagerAdapter {
@@ -107,10 +162,24 @@ class AwardAdapter extends PagerAdapter {
         ImageView image = view.findViewById(R.id.award_image);
         TextView title = view.findViewById(R.id.award_title);
         TextView desc = view.findViewById(R.id.award_desc);
+        TextView amount = view.findViewById(R.id.award_amount);
 
-        image.setImageResource(awards.get(position).getImage());
-        title.setText(awards.get(position).getName());
-        desc.setText(awards.get(position).getDescription());
+        //new code by roy
+        if(awards.get(position).getImage() == -1){
+            File imgFile = new File(awards.get(position).getImage_path());
+            Bitmap myBitmap;
+            myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+            image.setImageBitmap(myBitmap);
+            title.setText(awards.get(position).getName());
+            amount.setText("amount: " + awards.get(position).getAmount());
+            desc.setText(awards.get(position).getDescription());
+        }else{
+            image.setImageResource(awards.get(position).getImage());
+            title.setText(awards.get(position).getName());
+            desc.setText(awards.get(position).getDescription());
+            amount.setText("amount: " + 1);
+        }
 
         container.addView(view, 0);
 
