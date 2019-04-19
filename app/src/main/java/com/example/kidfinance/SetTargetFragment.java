@@ -200,7 +200,7 @@ public class SetTargetFragment extends Fragment {
         }else if(resultCode == RESULT_OK && requestCode == PICK_TARGET){
             String result = data.getExtras().getString("result");
             target = result;
-            target_button.setText(target);
+            target_button.setText("Target:\n$" +target);
         }
     }
 
