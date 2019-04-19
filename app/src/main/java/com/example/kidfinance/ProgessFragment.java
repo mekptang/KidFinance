@@ -44,8 +44,6 @@ public class ProgessFragment extends Fragment {
 
         currentSaving = 2500;
 
-
-
         return inflater.inflate(R.layout.fragment_progress, container, false);
     }
 

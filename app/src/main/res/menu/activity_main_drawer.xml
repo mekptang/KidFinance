@@ -6,45 +6,31 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_achievement"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/navigation_achievement"
             android:title="ACHIEVEMENT" />
         <item
             android:id="@+id/nav_award"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/navigation_award"
             android:title="AWARD" />
         <item
             android:id="@+id/nav_progress"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/navigation_progress"
             android:title="PROGRESS" />
         <item
             android:id="@+id/nav_record"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/navigation_record"
             android:title="RECORDS" />
         <item
             android:id="@+id/nav_setTarget"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/navigation_target"
             android:title="SET TARGET" />
         <item
             android:id="@+id/nav_incomeExpense"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="INCOME/EXPENSE" />
+            android:icon="@drawable/navigation_income_expense"
+            android:title="RECORD INCOME / EXPENSE" />
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_menu_manage"
             android:title="SETTING" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
-
 </menu>
