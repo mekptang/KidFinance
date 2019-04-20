@@ -190,7 +190,9 @@ public class SetTargetFragment extends Fragment {
                 String listSerializedToJson = new Gson().toJson(itemListSample);
 //                Toast.makeText(getContext(), listSerializedToJson, Toast.LENGTH_LONG).show();
                 writeToFile(listSerializedToJson, getContext(), "kf_target_awardListJSON_config.txt");
+                //plain text for saving and target money
                 writeToFile(target, getContext(), "kf_target_money_config.txt");
+                writeToFile("0", getContext(), "kf_saving_money_config.txt");
                 FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment());
                 ft.commit();
                 Toast.makeText(getContext(),"The New Target is "+target, Toast.LENGTH_LONG).show();

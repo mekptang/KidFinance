@@ -53,7 +53,7 @@ public class AchievementFragment extends Fragment {
                 achievements_list.add(current_achievement);
             }
 
-            Toast.makeText(getContext(),"Achievement File Loaded Successfully!", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getContext(),"Achievement File Loaded Successfully!", Toast.LENGTH_LONG).show();
         }
         else {
             // If achievement_list.txt does not exist in local storage:
@@ -143,7 +143,7 @@ public class AchievementFragment extends Fragment {
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getContext(),"Loaded",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),"Loaded",Toast.LENGTH_SHORT).show();
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
