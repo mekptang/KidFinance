@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".MainActivity">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontal_guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontal_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontal_guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontal_guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vertical_guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vertical_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vertical_guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vertical_guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <TextView
+        android:id="@+id/create_account_step2_title"
+        android:text="Step 2: Know More About You!"
+        android:textSize="25dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_guideline1" />
+
+    <ImageButton
+        android:id="@+id/create_account_step2_boy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:maxHeight="150dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/create_account_step2_boy_photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/create_account_step2_name"
+        app:layout_constraintTop_toBottomOf="@+id/create_account_step2_title" />
+
+    <LinearLayout
+        android:id="@+id/create_account_step2_name"
+        android:layout_width="0dp"
+        android:layout_height="120px"
+        android:layout_weight="10"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/vertical_guideline2"
+        app:layout_constraintStart_toStartOf="@+id/vertical_guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/create_account_step2_age">>
+
+        <TextView
+            android:id="@+id/create_account_step2_name_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="3"
+            android:adjustViewBounds="true"
+            android:gravity="center_vertical"
+            android:maxHeight="100px"
+            android:text="Name:"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/create_account_step2_name_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="7"
+            android:adjustViewBounds="true"
+            android:gravity="center"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/create_account_step2_age"
+        android:layout_width="0dp"
+        android:layout_height="120px"
+        android:maxHeight="100px"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/vertical_guideline1"
+        app:layout_constraintEnd_toEndOf="@+id/vertical_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/create_account_step2_name"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline3"
+        android:layout_weight="10">
+
+        <TextView
+            android:id="@+id/create_account_step2_age_title"
+            android:text="Age:"
+            android:textSize="20dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="3"
+            android:adjustViewBounds="true"
+            android:gravity="center_vertical"
+            android:maxHeight="100px"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <NumberPicker
+            android:id="@+id/create_account_step2_age_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:maxHeight="10px" />
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/create_account_step2_create"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/vertical_guideline3"
+        app:layout_constraintEnd_toEndOf="@+id/vertical_guideline4"
+        app:layout_constraintTop_toTopOf="@+id/horizontal_guideline3"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline4"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp" >
+
+        <ImageView
+            android:id="@+id/create_account_step2_create_button"
+            android:src="@drawable/create_account_step2_create_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+    </android.support.v7.widget.CardView>
+ />
+
+</android.support.constraint.ConstraintLayout>
