@@ -101,35 +101,35 @@
                 android:layout_marginLeft="100dp">
 
                 <RadioButton
-                    android:id="@+id/tbtn_exp_L"
+                    android:id="@+id/tbtn_exp_living"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Living" />
 
                 <RadioButton
-                    android:id="@+id/tbtn_exp_T"
+                    android:id="@+id/tbtn_exp_transport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Transport" />
 
                 <RadioButton
-                    android:id="@+id/tbtn_exp_S"
+                    android:id="@+id/tbtn_exp_study"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Study" />
 
                 <RadioButton
-                    android:id="@+id/tbtn_exp_E"
+                    android:id="@+id/tbtn_exp_entertainment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Entertainment" />
 
                 <RadioButton
-                    android:id="@+id/tbtn_exp_O"
+                    android:id="@+id/tbtn_exp_other"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

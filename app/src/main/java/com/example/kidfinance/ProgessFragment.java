@@ -29,20 +29,29 @@ public class ProgessFragment extends Fragment {
     TextView message;
     TextView current;
     ProgressBar bar;
-    int currentSaving;
+    float currentSaving;
     int percent;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
-        String tempVal = loadTextFile("kf_target_money_config.txt");
-        if(tempVal != ""){
-            targetValue = Integer.parseInt(tempVal);
+
+        String tempTargetVal = loadTextFile("kf_target_money_config.txt");
+        String tempSavingVal = loadTextFile("kf_saving_money_config.txt");
+
+        if(tempTargetVal != ""){
+            targetValue = Integer.parseInt(tempTargetVal);
         }else {
             targetValue = 0;
         }
 
-        currentSaving = 2500;
+        if(tempSavingVal != ""){
+            currentSaving = Float.parseFloat(tempSavingVal);
+        }else {
+            currentSaving = 0;
+        }
+
+
 
         return inflater.inflate(R.layout.fragment_progress, container, false);
     }
