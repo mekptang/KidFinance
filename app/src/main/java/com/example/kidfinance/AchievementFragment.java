@@ -119,6 +119,7 @@ public class AchievementFragment extends Fragment {
         });
     }
 
+    // File I/O for storing achievement info
     public boolean fileExists(Context context, String filename) {
         File file = context.getFileStreamPath(filename);
 
@@ -129,8 +130,7 @@ public class AchievementFragment extends Fragment {
         return true;
     }
 
-    public String loadTextFile(String fileName)
-    {
+    public String loadTextFile(String fileName) {
         String text = "";
         try {
             FileInputStream inStream = getContext().openFileInput(fileName);
@@ -143,7 +143,6 @@ public class AchievementFragment extends Fragment {
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getContext(),"Loaded",Toast.LENGTH_LONG).show();
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();

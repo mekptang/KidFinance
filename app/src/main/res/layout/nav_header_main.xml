@@ -18,7 +18,8 @@
         android:layout_gravity="center_horizontal|center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxHeight="60px"
+        android:adjustViewBounds="true"
+        android:maxHeight="600px"
         android:maxWidth="60px"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -28,12 +29,14 @@
         android:id="@+id/navigation_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="60dp"
         android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_weight="7"
         android:fontFamily="sans-serif-medium"
         android:textStyle="bold"
         android:textColor="#ffffffff"
         android:gravity="center"
         android:text="JEFF"
-        android:textSize="50dp" />
+        android:textSize="40dp"
+        android:layout_weight="7"/>
 </LinearLayout>

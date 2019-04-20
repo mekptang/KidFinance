@@ -16,15 +16,17 @@
         <activity android:name=".ReturnDescriptionActivity"></activity>
         <activity android:name=".ReturnTargetActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".AccountCreate_Step0"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AccountCreate_Step1"></activity>
+        <activity android:name=".AccountCreate_Step2"></activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
