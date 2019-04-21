@@ -174,7 +174,8 @@ class AwardAdapter extends PagerAdapter {
             title.setText(awards.get(position).getName());
             amount.setText("amount: " + awards.get(position).getAmount());
             desc.setText(awards.get(position).getDescription());
-        }else{
+        }
+        else {
             image.setImageResource(awards.get(position).getImage());
             title.setText(awards.get(position).getName());
             desc.setText(awards.get(position).getDescription());

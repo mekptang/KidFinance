@@ -13,15 +13,15 @@ public class AchievementModel {
         this.achievement_success = success;
     }
 
-    public int getAchievementLogo(){
+    public int getAchievementLogo() {
         return this.achievement_logo;
     }
 
-    public String getAchievementTitle(){
+    public String getAchievementTitle() {
         return this.achievement_title;
     }
 
-    public String getAchievementDescription(){
+    public String getAchievementDescription() {
         return this.achievement_description;
     }
 

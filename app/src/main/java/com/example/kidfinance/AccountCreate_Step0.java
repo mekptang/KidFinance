@@ -19,7 +19,7 @@ public class AccountCreate_Step0 extends AppCompatActivity {
 
         // If account.txt exists, we directly go to MainActivity
         // Why not use SharedPreference is because if an user reset the app, he/she will never be able to reset account details as the app is not first access
-        if (fileExists(getApplicationContext(), account_file_name) == true) {
+        if (fileExists(getApplicationContext(), account_file_name) == false) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }

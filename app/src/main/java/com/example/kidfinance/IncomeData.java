@@ -9,13 +9,14 @@ public class IncomeData {
     String date;
     String amount;
     String remark;
+    String incomeType;
 
-    IncomeData(String amount, String remark){
-
+    IncomeData(String amount, String incomeType, String remark){
         Date date = Calendar.getInstance().getTime();
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         this.date = formatter.format(date);
         this.amount = amount;
+        this.incomeType = incomeType;
         this.remark = remark;
     }
 
@@ -29,5 +30,9 @@ public class IncomeData {
 
     public String getRemark() {
         return remark;
+    }
+
+    public String getIncomeType() {
+        return incomeType;
     }
 }

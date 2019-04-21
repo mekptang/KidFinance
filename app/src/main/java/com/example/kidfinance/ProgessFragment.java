@@ -11,9 +11,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,17 +38,17 @@ public class ProgessFragment extends Fragment {
 
         if(tempTargetVal != ""){
             targetValue = Integer.parseInt(tempTargetVal);
-        }else {
+        }
+        else {
             targetValue = 0;
         }
 
         if(tempSavingVal != ""){
             currentSaving = Float.parseFloat(tempSavingVal);
-        }else {
+        }
+        else {
             currentSaving = 0;
         }
-
-
 
         return inflater.inflate(R.layout.fragment_progress, container, false);
     }
@@ -93,7 +90,8 @@ public class ProgessFragment extends Fragment {
             inStream.close();
             text = stream.toString();
             Toast.makeText(getContext(),"Loaded",Toast.LENGTH_LONG).show();
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         catch (IOException e){

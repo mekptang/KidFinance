@@ -12,8 +12,7 @@ public class ExpenseData {
     String expenseType;
 
 
-    ExpenseData(String amount, String expenseType, String remark){
-
+    ExpenseData (String amount, String expenseType, String remark) {
         Date date = Calendar.getInstance().getTime();
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         this.date = formatter.format(date);

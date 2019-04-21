@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kidfinance">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +26,15 @@
         </activity>
         <activity android:name=".AccountCreate_Step1"></activity>
         <activity android:name=".AccountCreate_Step2"></activity>
+        <activity android:name=".Guide_Step0_1"></activity>
+        <activity android:name=".Guide_Step0_2"></activity>
+        <activity android:name=".Guide_Step1"></activity>
+        <activity android:name=".Guide_Step2"></activity>
+        <activity android:name=".Guide_Step3"></activity>
+        <activity android:name=".Guide_Step4"></activity>
+        <activity android:name=".Guide_Step5"></activity>
+        <activity android:name=".Guide_Step6"></activity>
+        <activity android:name=".Guide_Step7"></activity>
         <activity android:name=".MainActivity"></activity>
     </application>
 

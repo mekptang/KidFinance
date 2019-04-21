@@ -27,7 +27,7 @@
         <item
             android:id="@+id/nav_incomeExpense"
             android:icon="@drawable/navigation_income_expense"
-            android:title="RECORD INCOME / EXPENSE" />
+            android:title="INPUT INCOME / EXPENSE" />
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_menu_manage"

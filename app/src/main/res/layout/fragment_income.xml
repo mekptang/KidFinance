@@ -13,22 +13,24 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp"
-        android:background="#F4F7F9">
+        android:background="@drawable/income_expense_bg">
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center_horizontal"
-            android:text="Book Keeping"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="Record Your Money!"
             android:textSize="30sp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginVertical="10dp"
             android:orientation="horizontal">
 
             <Button
@@ -52,7 +54,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical"
             android:visibility="visible">
 
@@ -70,15 +74,8 @@
                     android:layout_marginTop="20dp"
                     android:ems="10"
                     android:gravity="center_horizontal"
-                    android:hint="$"
+                    android:hint="Amount ($)"
                     android:inputType="numberDecimal" />
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Amount($)" />
 
                 <EditText
                     android:id="@+id/remarks"
@@ -89,7 +86,7 @@
                     android:layout_marginBottom="20dp"
                     android:ems="10"
                     android:gravity="center_horizontal"
-                    android:hint="Remark(if any)"
+                    android:hint="Remark (if any)"
                     android:inputType="textPersonName" />
 
             </LinearLayout>
@@ -101,49 +98,57 @@
                 android:layout_marginLeft="100dp">
 
                 <RadioButton
-                    android:id="@+id/tbtn_exp_living"
+                    android:id="@+id/tbtn_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Living" />
 
                 <RadioButton
-                    android:id="@+id/tbtn_exp_transport"
+                    android:id="@+id/tbtn_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Transport" />
 
                 <RadioButton
-                    android:id="@+id/tbtn_exp_study"
+                    android:id="@+id/tbtn_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Study" />
 
                 <RadioButton
-                    android:id="@+id/tbtn_exp_entertainment"
+                    android:id="@+id/tbtn_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Entertainment" />
 
                 <RadioButton
-                    android:id="@+id/tbtn_exp_other"
+                    android:id="@+id/tbtn_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Others" />
 
             </RadioGroup>
-
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_confirm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Confirm" />
+        <android.support.v7.widget.CardView
+            android:id="@+id/create_account_step2_create_button"
+            android:layout_width="700px"
+            android:layout_height="150px"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp" >
+
+            <ImageButton
+                android:id="@+id/btn_confirm"
+                android:src="@drawable/income_expense_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

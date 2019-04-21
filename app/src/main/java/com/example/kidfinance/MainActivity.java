@@ -1,12 +1,12 @@
 package com.example.kidfinance;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -44,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigation_bar_account_details(navigationViewHeader);
 
         // Start the fragment you want here
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SetTargetFragment()).commit();
     }
 
     @Override
@@ -121,15 +118,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (fileExists(getApplicationContext(), account_file_name) == true) {
             // If account.txt exists in local storage:
-            // Load the achievement information into achievements_list one by one
+            // Load the account information to top of navigation bar one by one
             String json = loadTextFile(account_file_name);
             JsonObject all = new JsonParser().parse(json).getAsJsonObject();
 
             String account_name = all.get("account_name").getAsString();
-            int account_icon = all.get("account_icon").getAsInt();
+            Uri icon_uri = Uri.parse(all.get("account_icon_uri").getAsString());
 
             account_name_view.setText(account_name);
-            account_icon_view.setImageResource(account_icon);
+            account_icon_view.setImageURI(icon_uri);
         }
         else {
             Toast.makeText(getApplicationContext(), "Cannot detect/read account.txt in local storage!", Toast.LENGTH_LONG).show();
@@ -168,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         catch (IOException e){
             return e.toString();
         }
+
         return text;
     }
 }

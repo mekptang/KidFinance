@@ -99,7 +99,7 @@ public class SetTargetFragment extends Fragment {
         pos = position;
     }
 
-    private void openGallery(){
+    private void openGallery() {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, PICK_IMAGE);
     }
@@ -107,9 +107,9 @@ public class SetTargetFragment extends Fragment {
     private String getPath(Uri uri) {
         String[] projection = {MediaStore.Video.Media.DATA};
         Cursor cursor = getContext().getContentResolver().query(uri, projection, null, null, null);
-        int column_index = cursor
-                .getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
         cursor.moveToFirst();
+
         return cursor.getString(column_index);
     }
 
@@ -160,10 +160,11 @@ public class SetTargetFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String check = item.getText().toString();
-                if(!check.equals("") && (imagePath != null)){
+                if (!check.equals("") && (imagePath != null)) {
                     insertItem(item.getText().toString());
                     item.setText("");
-                }else{
+                }
+                else {
                     Toast.makeText(getContext(),"Please Input Item Name or Select Image", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -179,7 +180,7 @@ public class SetTargetFragment extends Fragment {
         target_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(getActivity(),ReturnTargetActivity.class);
+                Intent in = new Intent(getActivity(), ReturnTargetActivity.class);
                 startActivityForResult(in, PICK_TARGET);
             }
         });
@@ -190,12 +191,12 @@ public class SetTargetFragment extends Fragment {
                 String listSerializedToJson = new Gson().toJson(itemListSample);
 //                Toast.makeText(getContext(), listSerializedToJson, Toast.LENGTH_LONG).show();
                 writeToFile(listSerializedToJson, getContext(), "kf_target_awardListJSON_config.txt");
-                //plain text for saving and target money
+                // plain text for saving and target money
                 writeToFile(target, getContext(), "kf_target_money_config.txt");
                 writeToFile("0", getContext(), "kf_saving_money_config.txt");
                 FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment());
                 ft.commit();
-                Toast.makeText(getContext(),"The New Target is "+target, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"The New Target is "+ target, Toast.LENGTH_LONG).show();
 
 //                String t = loadTextFile("kf_target_config.txt");
 //                Toast.makeText(getContext(),t, Toast.LENGTH_SHORT).show();
@@ -206,15 +207,18 @@ public class SetTargetFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
+
         if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
             imageUri = data.getData();
             imagePath = getPath(imageUri);
             item_preview.setImageURI(imageUri);
-        }else if(resultCode == RESULT_OK && requestCode == PICK_TARGET){
+        }
+        else if(resultCode == RESULT_OK && requestCode == PICK_TARGET){
             String result = data.getExtras().getString("result");
             target = result;
             target_button.setText("Target:\n$" +target);
-        }else if(resultCode == RESULT_OK && requestCode == PICK_DESCRIPTION){
+        }
+        else if(resultCode == RESULT_OK && requestCode == PICK_DESCRIPTION){
             String result = data.getExtras().getString("result");
             changeItemDescription(pos, result);
         }
