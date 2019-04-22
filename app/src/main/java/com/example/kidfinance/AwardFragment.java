@@ -40,8 +40,8 @@ public class AwardFragment extends Fragment {
     AwardAdapter adapter;
     List<AwardModel> awards;
     Button setAwardBtn;
-    float current_savings;
-    float target_savings;
+    float current_savings = 0;
+    float target_savings = 0;
     int award_index = 0;
 
     @Nullable
@@ -52,22 +52,25 @@ public class AwardFragment extends Fragment {
 
         //new code by roy
         String json = loadTextFile("kf_target_awardListJSON_config.txt");
-        JsonArray arr = new JsonParser().parse(json).getAsJsonArray();
+        try {
+            JsonArray arr = new JsonParser().parse(json).getAsJsonArray();
 
-        //new code by roy
-        for (JsonElement je : arr) {
-            JsonObject all = je.getAsJsonObject();
-            String image = all.get("image_path").getAsString();
-            String name = all.get("name").getAsString();
-            String amount = all.get("amount").getAsString();
-            String description = all.get("description").getAsString();
+            //new code by roy
+            for (JsonElement je : arr) {
+                JsonObject all = je.getAsJsonObject();
+                String image = all.get("image_path").getAsString();
+                String name = all.get("name").getAsString();
+                String amount = all.get("amount").getAsString();
+                String description = all.get("description").getAsString();
 
-            AwardModel am = new AwardModel(image, name, amount, description);
-            awards.add(am);
+                AwardModel am = new AwardModel(image, name, amount, description);
+                awards.add(am);
+            }
+            current_savings = Float.parseFloat(loadTextFile("kf_saving_money_config.txt"));
+            target_savings = Float.parseFloat(loadTextFile("kf_target_money_config.txt"));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        current_savings = Float.parseFloat(loadTextFile("kf_saving_money_config.txt"));
-        target_savings = Float.parseFloat(loadTextFile("kf_target_money_config.txt"));
 
         return inflater.inflate(R.layout.fragment_award, container, false);
     }
@@ -115,8 +118,8 @@ public class AwardFragment extends Fragment {
                 awards.clear();
                 adapter.notifyDataSetChanged();
                 writeToFile(new Gson().toJson(awards), getContext(), "kf_target_awardListJSON_config.txt");
-                    setAwardBtn.setEnabled(false);
-                    setAwardBtn.setBackgroundResource(R.drawable.round_disable);
+                setAwardBtn.setEnabled(false);
+                setAwardBtn.setBackgroundResource(R.drawable.round_disable);
             }
         });
     }
