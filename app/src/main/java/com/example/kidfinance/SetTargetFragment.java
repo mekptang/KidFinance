@@ -21,8 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,6 +43,7 @@ public class SetTargetFragment extends Fragment {
     private static int pos;
     public Uri imageUri;
     ArrayList<ItemListSample> itemListSample;
+    ArrayList<AwardModel> awardList = null;
     private RecyclerView mRecyclerView;
     private ItemListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManger;
@@ -84,7 +90,7 @@ public class SetTargetFragment extends Fragment {
 
     public void changeItemDescription(int position, String description) {
         itemListSample.get(position).setDescription(description);
-        Toast.makeText(getContext(), itemListSample.get(position).getDescription(), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getContext(), itemListSample.get(position).getDescription(), Toast.LENGTH_SHORT).show();
     }
 
     public void createItemListSample() {
@@ -176,7 +182,13 @@ public class SetTargetFragment extends Fragment {
         target_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                float current_balance = 0;
+                if (fileExists(getContext(), "kf_saving_money_config.txt") == true) {
+                    current_balance = Float.parseFloat(loadTextFile("kf_saving_money_config.txt"));
+                }
+
                 Intent in = new Intent(getActivity(), ReturnTargetActivity.class);
+                in.putExtra("current_balance", current_balance);
                 startActivityForResult(in, PICK_TARGET);
             }
         });
@@ -184,18 +196,57 @@ public class SetTargetFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String listSerializedToJson = new Gson().toJson(itemListSample);
-//                Toast.makeText(getContext(), listSerializedToJson, Toast.LENGTH_LONG).show();
-                writeToFile(listSerializedToJson, getContext(), "kf_target_awardListJSON_config.txt");
-                // plain text for saving and target money
-                writeToFile(target, getContext(), "kf_target_money_config.txt");
-                writeToFile("0", getContext(), "kf_saving_money_config.txt");
-                FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment());
-                ft.commit();
-                Toast.makeText(getContext(), "The New Target is " + target, Toast.LENGTH_LONG).show();
+                // Obtain current balance and current target
+                float current_balance = 0;
+                float current_target = 0;
+                if (fileExists(getContext(), "kf_saving_money_config.txt") == true) {
+                    current_balance = Float.parseFloat(loadTextFile("kf_saving_money_config.txt"));
+                }
+                if (fileExists(getContext(), "kf_target_money_config.txt") == true) {
+                    current_target = Float.parseFloat(loadTextFile("kf_target_money_config.txt"));
+                }
 
-//                String t = loadTextFile("kf_target_config.txt");
-//                Toast.makeText(getContext(),t, Toast.LENGTH_SHORT).show();
+                // Only allow the user to set target when the old target is finished + The Present List is empty
+                if (current_balance >= current_target || current_target == 0) {
+                    String json = loadTextFile("kf_target_awardListJSON_config.txt");
+                    if (json == "") {
+                        json = "[]";
+                    }
+                    try {
+                        JsonArray arr = new JsonParser().parse(json).getAsJsonArray();
+
+                        for (JsonElement je : arr) {
+                            Gson gson = new Gson();
+                            AwardModel am = gson.fromJson(je,  AwardModel.class);
+                            awardList.add(am);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    if (awardList == null) {
+                        if ((itemListSample != null) && (target.equals("0") == false)) {
+                            String listSerializedToJson = new Gson().toJson(itemListSample);
+                            writeToFile(listSerializedToJson, getContext(), "kf_target_awardListJSON_config.txt");
+
+                            // plain text for saving and target money
+                            writeToFile(target, getContext(), "kf_target_money_config.txt");
+                            // writeToFile("0", getContext(), "kf_saving_money_config.txt");
+
+                            Toast.makeText(getContext(), "The New Target is " + target, Toast.LENGTH_LONG).show();
+
+                            FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProgessFragment());
+                            ft.commit();
+                        }
+                        else {
+                            Toast.makeText(getContext(), "Please set BOTH the Target and Award before continue!", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Please take one present before setting a new target!", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Please finish the current target before setting a new one!", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -216,6 +267,17 @@ public class SetTargetFragment extends Fragment {
             String result = data.getExtras().getString("result");
             changeItemDescription(pos, result);
         }
+    }
+
+    // File I/O for storing achievement info
+    public boolean fileExists(Context context, String filename) {
+        File file = context.getFileStreamPath(filename);
+
+        if (file == null || !file.exists()) {
+            return false;
+        }
+
+        return true;
     }
 
     private void writeToFile(String data, Context context, String fileName) {
@@ -241,7 +303,6 @@ public class SetTargetFragment extends Fragment {
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getContext(), "Loaded", Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

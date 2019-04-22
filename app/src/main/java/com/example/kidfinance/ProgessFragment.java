@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+// import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -88,7 +88,6 @@ public class ProgessFragment extends Fragment {
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getContext(), "Loaded", Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

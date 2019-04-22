@@ -1,9 +1,13 @@
 package com.example.kidfinance;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+// import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -23,16 +27,24 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     String account_file_name = "account.txt";
+    String achievement_file_name = "achievement_list.txt";
+    private static final int CREATE_ACHIEVEMENT_LIST = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (fileExists(getApplicationContext(), achievement_file_name) == false) {
+            Intent in = new Intent(getApplicationContext(), AchievementListCreationActivity.class);
+            startActivityForResult(in, CREATE_ACHIEVEMENT_LIST);
+        }
 
         // Load Navigation Bar
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -44,6 +56,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Start the fragment you want here
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SetTargetFragment()).commit();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == CREATE_ACHIEVEMENT_LIST) {
+            // Toast.makeText(getApplicationContext(), "Achievement File Created Successfully!", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -127,9 +148,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             account_name_view.setText(account_name);
             account_icon_view.setImageBitmap(myBitmap);
         }
-        else {
-            Toast.makeText(getApplicationContext(), "Cannot detect/read account.txt in local storage!", Toast.LENGTH_LONG).show();
-        }
     }
 
     // File I/O for storing achievement info
@@ -156,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getApplicationContext(), "Loaded", Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

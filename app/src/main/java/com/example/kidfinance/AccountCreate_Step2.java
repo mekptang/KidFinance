@@ -81,7 +81,7 @@ public class AccountCreate_Step2 extends AppCompatActivity {
                 name = name_input.getText().toString();
                 age = age_input.getValue();
 
-                if (name != "") {
+                if (name != "" && icon_uri != null) {
                     if (icon_uri == null && gender == 0) {
                         icon_uri_string = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.drawable.create_account_step1_boy).toString();
                     } else if (icon_uri == null && gender == 1) {
@@ -97,7 +97,7 @@ public class AccountCreate_Step2 extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), Guide_Step0_1.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please enter your name before continue!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Please set your name and icon before continue!", Toast.LENGTH_LONG).show();
                 }
             }
         });

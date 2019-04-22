@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+// import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -55,7 +55,7 @@ public class AwardFragment extends Fragment {
         try {
             JsonArray arr = new JsonParser().parse(json).getAsJsonArray();
 
-            //new code by roy
+            // new code by roy
             for (JsonElement je : arr) {
                 JsonObject all = je.getAsJsonObject();
                 String image = all.get("image_path").getAsString();
@@ -82,8 +82,9 @@ public class AwardFragment extends Fragment {
         viewPager = view.findViewById(R.id.awardViewPager);
         adapter = new AwardAdapter(awards, getActivity());
         viewPager.setAdapter(adapter);
-        if (award_index != 0)
+        if (award_index != 0) {
             viewPager.setCurrentItem(award_index);
+        }
         viewPager.setPadding(130, 0, 130, 0);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -120,6 +121,13 @@ public class AwardFragment extends Fragment {
                 writeToFile(new Gson().toJson(awards), getContext(), "kf_target_awardListJSON_config.txt");
                 setAwardBtn.setEnabled(false);
                 setAwardBtn.setBackgroundResource(R.drawable.round_disable);
+
+                Fragment achievement_detect = new AchievementDetectFragment();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, achievement_detect, null)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
@@ -137,7 +145,6 @@ public class AwardFragment extends Fragment {
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getContext(), "Loaded", Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -199,7 +206,8 @@ class AwardAdapter extends PagerAdapter {
             title.setText(awards.get(position).getName());
             amount.setText("Amount: " + awards.get(position).getAmount());
             desc.setText(awards.get(position).getDescription());
-        } else {
+        }
+        else {
             image.setImageResource(awards.get(position).getImage());
             title.setText(awards.get(position).getName());
             desc.setText(awards.get(position).getDescription());

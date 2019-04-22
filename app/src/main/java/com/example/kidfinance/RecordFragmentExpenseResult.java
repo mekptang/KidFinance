@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+// import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -51,8 +51,6 @@ public class RecordFragmentExpenseResult extends Fragment {
             json = "[]";
         }
         JsonArray jsonArray = new JsonParser().parse(json).getAsJsonArray();
-        System.out.println("Here is the jsonarray");
-        System.out.println(jsonArray.toString());
 
         String[] ExpenseTypes = new String[]{"Living", "Transport", "Study", "Entertainment", "Others"};
         float[] Amounts = new float[5];
@@ -80,7 +78,6 @@ public class RecordFragmentExpenseResult extends Fragment {
             } else if (ExpenseType.equals("Others")) {
                 Amounts[4] += Amount;
             } else {
-                System.out.println("fuck my life");
                 System.out.println("ExpenseType: " + ExpenseType);
             }
         }
@@ -179,7 +176,6 @@ public class RecordFragmentExpenseResult extends Fragment {
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getContext(), "Loaded", Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

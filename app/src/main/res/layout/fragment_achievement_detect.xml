@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/achievement_bg"
+    android:orientation="vertical"
+    android:weightSum="10" >
+
+    <ImageView
+        android:id="@+id/achievement_detect_title"
+        android:src="@drawable/achievement_detect_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="2.5" />
+
+    <TextView
+        android:id="@+id/achievement_detect_summary"
+        android:text="No Achievements Attained This Time!"
+        android:textSize="50px"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="0.5" />
+
+    <GridView
+        android:id="@+id/achievement_detect_mainGrid"
+        android:numColumns="2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:alignmentMode="alignMargins"
+        android:columnOrderPreserved="false"
+        android:padding="14dp"
+        android:layout_weight="5">
+    </GridView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="0.5" />
+
+    <ImageButton
+        android:id="@+id/achievement_detect_next"
+        android:layout_width="800px"
+        android:layout_height="0px"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:adjustViewBounds="false"
+        android:background="@android:color/transparent"
+        android:cropToPadding="false"
+        android:scaleType="fitCenter"
+        android:src="@drawable/target_next_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="0.5" />
+</LinearLayout>

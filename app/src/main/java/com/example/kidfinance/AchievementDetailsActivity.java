@@ -1,40 +1,33 @@
 package com.example.kidfinance;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class AchievementDetailsFragment extends Fragment {
-
-    Bundle bundle;
+public class AchievementDetailsActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.fragment_achievement_details);
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
+        Intent intent = getIntent();
+
         // Set up the background
-        View view_achievement_details = inflater.inflate(R.layout.fragment_achievement_details, container, false);
-        CardView current_card = (CardView) view_achievement_details.findViewById(R.id.achievement_details_cardView);
+        CardView current_card = (CardView) this.findViewById(R.id.achievement_details_cardView);
 
         // Display the details of the achievement
-        bundle = this.getArguments();
-
-        if (bundle != null) {
-            int achievement_logo_id = bundle.getInt("logo", 0);
-            String achievement_title = bundle.getString("achievement_title");
-            String achievement_description = bundle.getString("achievement_description");
-            int achievement_completion = bundle.getInt("achievement_completion", 0);
+        if (intent.getExtras() != null) {
+            int achievement_logo_id = intent.getIntExtra("logo", 0);
+            String achievement_title = intent.getStringExtra("achievement_title");
+            String achievement_description = intent.getStringExtra("achievement_description");
+            int achievement_completion = intent.getIntExtra("achievement_completion", 0);
 
             ImageView logo = (ImageView) current_card.findViewById(R.id.achievement_details_achievement_logo);
             TextView title = (TextView) current_card.findViewById(R.id.achievement_details_achievement_title);
@@ -52,16 +45,12 @@ public class AchievementDetailsFragment extends Fragment {
             }
         }
 
-        return view_achievement_details;
-    }
-
-    public void onViewCreated(View view_achievement_details, Bundle savedInstanceState) {
-        ImageButton back_button = (ImageButton) view_achievement_details.findViewById(R.id.achievement_details_back_button);
+        ImageButton back_button = (ImageButton) this.findViewById(R.id.achievement_details_back_button);
         back_button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View view) {
-                int i = 0;
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.popBackStack();
+                Intent intent = new Intent();
+                AchievementDetailsActivity.this.setResult(RESULT_OK, intent);
+                AchievementDetailsActivity.this.finish();
             }
         });
     }

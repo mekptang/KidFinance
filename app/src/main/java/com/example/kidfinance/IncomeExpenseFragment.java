@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
@@ -58,6 +59,8 @@ public class IncomeExpenseFragment extends Fragment {
     String[] incomeTypeList = {"Pocket Money", "Red Packets", "Work", "Reward", "Others"};
     String expenseType;
     String incomeType;
+
+    ArrayList<AwardModel> awardList;
 
     @Nullable
     @Override
@@ -216,7 +219,6 @@ public class IncomeExpenseFragment extends Fragment {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "Done!", Toast.LENGTH_SHORT).show();
                         String tempSavingVal = loadTextFile("kf_saving_money_config.txt");
                         if (tempSavingVal == "") {
                             tempSavingVal = "0";
@@ -242,7 +244,6 @@ public class IncomeExpenseFragment extends Fragment {
                             expenseDataList.add(ed);
 
                             String listSerializedToJson = new Gson().toJson(expenseDataList);
-                            Toast.makeText(getContext(), listSerializedToJson, Toast.LENGTH_LONG).show();
                             writeToFile(listSerializedToJson, getContext(), "expense_record.txt");
 
                             // FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment());
@@ -264,14 +265,42 @@ public class IncomeExpenseFragment extends Fragment {
                             incomeDataList.add(id);
 
                             String listSerializedToJson = new Gson().toJson(incomeDataList);
-                            Toast.makeText(getContext(), listSerializedToJson, Toast.LENGTH_LONG).show();
                             writeToFile(listSerializedToJson, getContext(), "income_record.txt");
                         }
-                        float target = Float.parseFloat(loadTextFile("kf_target_money_config.txt"));
-                        if (savingVal >= target)
+
+                        // See if user has reached target
+                        float target = 0;
+                        try {
+                            target = Float.parseFloat(loadTextFile("kf_target_money_config.txt"));
+                        }
+                        catch (Exception e) {
+                            target = 0;
+                        }
+
+                        String json = loadTextFile("kf_target_awardListJSON_config.txt");
+                        if (json == "") {
+                            json = "[]";
+                        }
+
+                        if (savingVal >= target && json.equals("[]") == false) {
                             achievePop();
-                        else
-                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProgessFragment()).commit();
+                        }
+                        else {
+                            Bundle info = new Bundle();
+
+                            info.putInt("flag", 1);
+
+                            Fragment achievement_detect = new AchievementDetectFragment();
+                            achievement_detect.setArguments(info);
+
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_container, achievement_detect, null)
+                                    .addToBackStack(null)
+                                    .commit();
+
+                            // getFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProgessFragment()).commit();
+                        }
                     }
                 }).setNegativeButton(android.R.string.no, null).show();
     }
@@ -287,7 +316,13 @@ public class IncomeExpenseFragment extends Fragment {
                         getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AwardFragment()).commit();
                     }
                 })
-                .setNegativeButton(android.R.string.no, null).show();
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementDetectFragment()).commit();
+                    }
+                })
+                .show();
     }
 
     public String loadTextFile(String fileName) {
@@ -303,7 +338,6 @@ public class IncomeExpenseFragment extends Fragment {
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getContext(), "Loaded", Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
