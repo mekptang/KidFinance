@@ -112,13 +112,11 @@ public class AwardFragment extends Fragment {
                                 awards.get(award_index).getName() + " is get !")
                         .setNeutralButton(android.R.string.ok, null)
                         .show();
-                awards.remove(award_index);
+                awards.clear();
                 adapter.notifyDataSetChanged();
                 writeToFile(new Gson().toJson(awards), getContext(), "kf_target_awardListJSON_config.txt");
-                if (awards.size() == 0) {
                     setAwardBtn.setEnabled(false);
                     setAwardBtn.setBackgroundResource(R.drawable.round_disable);
-                }
             }
         });
     }
