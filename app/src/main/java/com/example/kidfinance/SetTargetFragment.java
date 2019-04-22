@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,33 +29,27 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
-
 import static android.app.Activity.RESULT_OK;
 
 public class SetTargetFragment extends Fragment {
+    private static final int PICK_IMAGE = 100;
+    private static final int PICK_TARGET = 200;
+    private static final int PICK_DESCRIPTION = 300;
+    private static int pos;
+    public Uri imageUri;
     ArrayList<ItemListSample> itemListSample;
-
     private RecyclerView mRecyclerView;
     private ItemListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManger;
     private View view;
-
     private ImageButton item_insert;
     private TextView item;
     private ImageButton select;
     private ImageView item_preview;
     private Button target_button;
     private ImageButton next;
-
-
-    private static final int PICK_IMAGE = 100;
-    private static final int PICK_TARGET = 200;
-    private static final int PICK_DESCRIPTION = 300;
-    public Uri imageUri;
     private String imagePath;
     private String target = "0";
-    private static int pos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
@@ -65,37 +61,38 @@ public class SetTargetFragment extends Fragment {
 
         return view;
     }
-    public void insertItem(String item){
+
+    public void insertItem(String item) {
         itemListSample.add(new ItemListSample(imagePath, item));
         mAdapter.notifyDataSetChanged();
     }
 
-    public void removeItem(int position){
+    public void removeItem(int position) {
         itemListSample.remove(position);
         mAdapter.notifyDataSetChanged();
     }
 
-    public void addNumItem(int position){
+    public void addNumItem(int position) {
         itemListSample.get(position).addNumberOfItem();
         mAdapter.notifyDataSetChanged();
     }
 
-    public void dropNumItem(int position){
+    public void dropNumItem(int position) {
         itemListSample.get(position).dropNumberOfItem();
         mAdapter.notifyDataSetChanged();
     }
 
-    public void changeItemDescription(int position, String description){
+    public void changeItemDescription(int position, String description) {
         itemListSample.get(position).setDescription(description);
-        Toast.makeText(getContext(),itemListSample.get(position).getDescription(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), itemListSample.get(position).getDescription(), Toast.LENGTH_SHORT).show();
     }
 
-    public void createItemListSample(){
+    public void createItemListSample() {
         itemListSample = new ArrayList<>();
         //itemListSample.add(new ItemListSample(R.drawable.ic_menu_camera, "apple"));
     }
 
-    public void getItemPosition(int position){
+    public void getItemPosition(int position) {
         pos = position;
     }
 
@@ -113,7 +110,7 @@ public class SetTargetFragment extends Fragment {
         return cursor.getString(column_index);
     }
 
-    public void buildRecyclerView(){
+    public void buildRecyclerView() {
         mRecyclerView = view.findViewById(R.id.target_item_list);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManger = new LinearLayoutManager(getContext());
@@ -125,9 +122,9 @@ public class SetTargetFragment extends Fragment {
         mAdapter.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(getContext(),"Item clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Item clicked", Toast.LENGTH_SHORT).show();
                 getItemPosition(position);
-                Intent in = new Intent(getActivity(),ReturnDescriptionActivity.class);
+                Intent in = new Intent(getActivity(), ReturnDescriptionActivity.class);
                 startActivityForResult(in, PICK_DESCRIPTION);
             }
 
@@ -148,7 +145,7 @@ public class SetTargetFragment extends Fragment {
         });
     }
 
-    public void setButtons(){
+    public void setButtons() {
         item_insert = view.findViewById(R.id.item_insert);
         item = view.findViewById(R.id.item);
         select = view.findViewById(R.id.select_item);
@@ -163,9 +160,8 @@ public class SetTargetFragment extends Fragment {
                 if (!check.equals("") && (imagePath != null)) {
                     insertItem(item.getText().toString());
                     item.setText("");
-                }
-                else {
-                    Toast.makeText(getContext(),"Please Input Item Name or Select Image", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Please Input Item Name or Select Image", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -196,7 +192,7 @@ public class SetTargetFragment extends Fragment {
                 writeToFile("0", getContext(), "kf_saving_money_config.txt");
                 FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment());
                 ft.commit();
-                Toast.makeText(getContext(),"The New Target is "+ target, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "The New Target is " + target, Toast.LENGTH_LONG).show();
 
 //                String t = loadTextFile("kf_target_config.txt");
 //                Toast.makeText(getContext(),t, Toast.LENGTH_SHORT).show();
@@ -205,20 +201,18 @@ public class SetTargetFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             imageUri = data.getData();
             imagePath = getPath(imageUri);
             item_preview.setImageURI(imageUri);
-        }
-        else if(resultCode == RESULT_OK && requestCode == PICK_TARGET){
+        } else if (resultCode == RESULT_OK && requestCode == PICK_TARGET) {
             String result = data.getExtras().getString("result");
             target = result;
-            target_button.setText("Target:\n$" +target);
-        }
-        else if(resultCode == RESULT_OK && requestCode == PICK_DESCRIPTION){
+            target_button.setText("Target:\n$" + target);
+        } else if (resultCode == RESULT_OK && requestCode == PICK_DESCRIPTION) {
             String result = data.getExtras().getString("result");
             changeItemDescription(pos, result);
         }
@@ -229,31 +223,28 @@ public class SetTargetFragment extends Fragment {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(fileName, Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 
-    public String loadTextFile(String fileName)
-    {
+    public String loadTextFile(String fileName) {
         String text = "";
         try {
             FileInputStream inStream = getContext().openFileInput(fileName);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int length = -1;
-            while((length = inStream.read(buffer))!=-1) {
-                stream.write(buffer,0,length);
+            while ((length = inStream.read(buffer)) != -1) {
+                stream.write(buffer, 0, length);
             }
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getContext(),"Loaded",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Loaded", Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return e.toString();
         }
         return text;

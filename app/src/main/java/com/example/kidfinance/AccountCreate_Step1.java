@@ -46,8 +46,7 @@ public class AccountCreate_Step1 extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), AccountCreate_Step2.class);
                     intent.putExtra(gender, selected_gender);
                     startActivity(intent);
-                }
-                else {
+                } else {
                     Toast.makeText(getApplicationContext(), "Please select your gender before continue!", Toast.LENGTH_LONG).show();
                 }
             }

@@ -19,7 +19,44 @@ public class RecordExpenseAdapter extends RecyclerView.Adapter<RecordExpenseAdap
         expense_list = list;
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public RecordExpenseAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.record_card_item, parent, false);
+        MyViewHolder vh = new MyViewHolder(v);
+
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        final int[] MY_COLORS = {Color.rgb(0, 200, 255), Color.rgb(255, 0, 0), Color.rgb(255, 190, 0),
+                Color.rgb(146, 208, 80), Color.rgb(127, 127, 127)};
+
+        if (expense_list.get(position).getExpenseType().equals("Living") == true) {
+            holder.record_type_image.setBackgroundColor(MY_COLORS[0]);
+        } else if (expense_list.get(position).getExpenseType().equals("Transport") == true) {
+            holder.record_type_image.setBackgroundColor(MY_COLORS[1]);
+        } else if (expense_list.get(position).getExpenseType().equals("Study") == true) {
+            holder.record_type_image.setBackgroundColor(MY_COLORS[2]);
+        } else if (expense_list.get(position).getExpenseType().equals("Entertainment") == true) {
+            holder.record_type_image.setBackgroundColor(MY_COLORS[3]);
+        } else if (expense_list.get(position).getExpenseType().equals("Others") == true) {
+            holder.record_type_image.setBackgroundColor(MY_COLORS[4]);
+        }
+
+        float amount = Float.parseFloat(expense_list.get(position).getAmount()) * -1;
+        holder.record_type.setText(expense_list.get(position).getExpenseType());
+        holder.record_remark.setText(expense_list.get(position).getRemark());
+        holder.record_date.setText(expense_list.get(position).getDate());
+        holder.record_amount.setText(Float.toString(amount));
+    }
+
+    @Override
+    public int getItemCount() {
+        return expense_list.size();
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         public CardView mCardView;
         public ImageView record_type_image;
         public TextView record_type;
@@ -37,46 +74,5 @@ public class RecordExpenseAdapter extends RecyclerView.Adapter<RecordExpenseAdap
             record_date = (TextView) v.findViewById(R.id.record_date);
             record_amount = (TextView) v.findViewById(R.id.record_amount);
         }
-    }
-
-    @Override
-    public RecordExpenseAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.record_card_item, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
-
-        return vh;
-    }
-
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        final int[] MY_COLORS = {Color.rgb(0,200,255), Color.rgb(255,0,0), Color.rgb(255,190,0),
-                Color.rgb(146,208,80), Color.rgb(127,127,127)};
-
-        if (expense_list.get(position).getExpenseType().equals("Living") == true) {
-            holder.record_type_image.setBackgroundColor(MY_COLORS[0]);
-        }
-        else if (expense_list.get(position).getExpenseType().equals("Transport") == true) {
-            holder.record_type_image.setBackgroundColor(MY_COLORS[1]);
-        }
-        else if (expense_list.get(position).getExpenseType().equals("Study") == true) {
-            holder.record_type_image.setBackgroundColor(MY_COLORS[2]);
-        }
-        else if (expense_list.get(position).getExpenseType().equals("Entertainment") == true) {
-            holder.record_type_image.setBackgroundColor(MY_COLORS[3]);
-        }
-        else if (expense_list.get(position).getExpenseType().equals("Others") == true) {
-            holder.record_type_image.setBackgroundColor(MY_COLORS[4]);
-        }
-
-        float amount = Float.parseFloat(expense_list.get(position).getAmount()) * -1;
-        holder.record_type.setText(expense_list.get(position).getExpenseType());
-        holder.record_remark.setText(expense_list.get(position).getRemark());
-        holder.record_date.setText(expense_list.get(position).getDate());
-        holder.record_amount.setText(Float.toString(amount));
-    }
-
-    @Override
-    public int getItemCount() {
-        return expense_list.size();
     }
 }

@@ -11,7 +11,7 @@ public class IncomeData {
     String remark;
     String incomeType;
 
-    IncomeData(String amount, String incomeType, String remark){
+    IncomeData(String amount, String incomeType, String remark) {
         Date date = Calendar.getInstance().getTime();
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         this.date = formatter.format(date);

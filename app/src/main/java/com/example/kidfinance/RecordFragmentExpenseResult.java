@@ -17,7 +17,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -48,7 +47,7 @@ public class RecordFragmentExpenseResult extends Fragment {
         View rootView = inflater.inflate(R.layout.record_pie_chart, container, false);
 
         String json = loadTextFile("expense_record.txt");
-        if(json == "") {
+        if (json == "") {
             json = "[]";
         }
         JsonArray jsonArray = new JsonParser().parse(json).getAsJsonArray();
@@ -72,20 +71,15 @@ public class RecordFragmentExpenseResult extends Fragment {
 
             if (ExpenseType.equals("Living")) {
                 Amounts[0] += Amount;
-            }
-            else if (ExpenseType.equals("Transport")) {
+            } else if (ExpenseType.equals("Transport")) {
                 Amounts[1] += Amount;
-            }
-            else if (ExpenseType.equals("Study")) {
+            } else if (ExpenseType.equals("Study")) {
                 Amounts[2] += Amount;
-            }
-            else if (ExpenseType.equals("Entertainment")) {
+            } else if (ExpenseType.equals("Entertainment")) {
                 Amounts[3] += Amount;
-            }
-            else if (ExpenseType.equals("Others")) {
+            } else if (ExpenseType.equals("Others")) {
                 Amounts[4] += Amount;
-            }
-            else {
+            } else {
                 System.out.println("fuck my life");
                 System.out.println("ExpenseType: " + ExpenseType);
             }
@@ -111,11 +105,11 @@ public class RecordFragmentExpenseResult extends Fragment {
         value.add(new PieEntry(Amounts[3], "Entertainment"));
         value.add(new PieEntry(Amounts[4], "Others"));
 
-        final int[] MY_COLORS = {Color.rgb(0,200,255), Color.rgb(255,0,0), Color.rgb(255,190,0),
-                Color.rgb(146,208,80), Color.rgb(127,127,127)};
+        final int[] MY_COLORS = {Color.rgb(0, 200, 255), Color.rgb(255, 0, 0), Color.rgb(255, 190, 0),
+                Color.rgb(146, 208, 80), Color.rgb(127, 127, 127)};
         ArrayList<Integer> colors = new ArrayList<Integer>();
 
-        for (int c: MY_COLORS) {
+        for (int c : MY_COLORS) {
             colors.add(c);
         }
 
@@ -133,7 +127,7 @@ public class RecordFragmentExpenseResult extends Fragment {
 
         pieChart.setData(pieData);
         pieChart.setDrawEntryLabels(false);
-        pieChart.animateXY(1400,1400);
+        pieChart.animateXY(1400, 1400);
         pieChart.setUsePercentValues(false);
         pieChart.getDescription().setEnabled(false);
         pieChart.setDragDecelerationFrictionCoef(0.95f);
@@ -179,18 +173,16 @@ public class RecordFragmentExpenseResult extends Fragment {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int length = -1;
-            while((length = inStream.read(buffer))!=-1) {
-                stream.write(buffer,0,length);
+            while ((length = inStream.read(buffer)) != -1) {
+                stream.write(buffer, 0, length);
             }
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getContext(),"Loaded",Toast.LENGTH_LONG).show();
-        }
-        catch (FileNotFoundException e) {
+            Toast.makeText(getContext(), "Loaded", Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return e.toString();
         }
         return text;

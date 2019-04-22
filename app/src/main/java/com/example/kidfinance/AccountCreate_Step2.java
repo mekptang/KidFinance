@@ -60,8 +60,7 @@ public class AccountCreate_Step2 extends AppCompatActivity {
 
         if (gender == 0) {
             icon_button.setImageResource(R.drawable.create_account_step2_boy_photo);
-        }
-        else {
+        } else {
             icon_button.setImageResource(R.drawable.create_account_step2_girl_photo);
         }
         age_input.setMinValue(1);
@@ -84,8 +83,7 @@ public class AccountCreate_Step2 extends AppCompatActivity {
                 if (name != "") {
                     if (icon_uri == null && gender == 0) {
                         icon_uri_string = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.drawable.create_account_step1_boy).toString();
-                    }
-                    else if (icon_uri == null && gender == 1) {
+                    } else if (icon_uri == null && gender == 1) {
                         icon_uri_string = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.drawable.create_account_step1_girl).toString();
                     }
 
@@ -97,8 +95,7 @@ public class AccountCreate_Step2 extends AppCompatActivity {
                     // Go to MainActivity
                     Intent intent = new Intent(getApplicationContext(), Guide_Step0_1.class);
                     startActivity(intent);
-                }
-                else {
+                } else {
                     Toast.makeText(getApplicationContext(), "Please enter your name before continue!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -106,7 +103,7 @@ public class AccountCreate_Step2 extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
@@ -160,8 +157,7 @@ public class AccountCreate_Step2 extends AppCompatActivity {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(fileName, Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }

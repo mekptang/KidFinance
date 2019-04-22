@@ -36,17 +36,15 @@ public class ProgessFragment extends Fragment {
         String tempTargetVal = loadTextFile("kf_target_money_config.txt");
         String tempSavingVal = loadTextFile("kf_saving_money_config.txt");
 
-        if(tempTargetVal != ""){
+        if (tempTargetVal != "") {
             targetValue = Integer.parseInt(tempTargetVal);
-        }
-        else {
+        } else {
             targetValue = 0;
         }
 
-        if(tempSavingVal != ""){
+        if (tempSavingVal != "") {
             currentSaving = Float.parseFloat(tempSavingVal);
-        }
-        else {
+        } else {
             currentSaving = 0;
         }
 
@@ -66,35 +64,34 @@ public class ProgessFragment extends Fragment {
         current.setText("Current savings: $" + currentSaving);
 
         percent = (int) Math.round(100.0 * currentSaving / targetValue);
-        if (percent < 100)
+        if (percent < 100) {
+            message.setText("You reached " + percent + "% of your target! Add oil!");
             bar.setProgress(percent);
-        else bar.setProgress(100);
-
-        message.setText("You reached " + percent + "% of your target! Add oil!");
+        } else {
+            bar.setProgress(100);
+            message.setText("You reached your target already! Yay!");
+        }
 
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public String loadTextFile(String fileName)
-    {
+    public String loadTextFile(String fileName) {
         String text = "";
         try {
             FileInputStream inStream = getContext().openFileInput(fileName);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int length = -1;
-            while((length = inStream.read(buffer))!=-1) {
-                stream.write(buffer,0,length);
+            while ((length = inStream.read(buffer)) != -1) {
+                stream.write(buffer, 0, length);
             }
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getContext(),"Loaded",Toast.LENGTH_LONG).show();
-        }
-        catch (FileNotFoundException e) {
+            Toast.makeText(getContext(), "Loaded", Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return e.toString();
         }
         return text;

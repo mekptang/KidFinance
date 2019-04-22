@@ -59,8 +59,7 @@ public class AchievementGridAdapter extends BaseAdapter {
                 ImageView success = (ImageView) current_card.findViewById(R.id.achievement_success_image);
                 success.setImageResource(R.drawable.achievement_success);
                 current_card_inner.setCardBackgroundColor(Color.parseColor("#FFFFFF00"));
-            }
-            else {
+            } else {
                 ImageView success = (ImageView) current_card.findViewById(R.id.achievement_success_image);
                 success.setImageResource(0);
                 current_card_inner.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));

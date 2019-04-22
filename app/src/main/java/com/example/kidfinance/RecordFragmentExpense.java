@@ -40,7 +40,7 @@ public class RecordFragmentExpense extends Fragment {
 
         String json = loadTextFile("expense_record.txt");
 
-        if (json == ""){
+        if (json == "") {
             json = "[]";
         }
         JsonArray jsonArray = new JsonParser().parse(json).getAsJsonArray();
@@ -69,18 +69,16 @@ public class RecordFragmentExpense extends Fragment {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int length = -1;
-            while((length = inStream.read(buffer)) != -1) {
-                stream.write(buffer,0,length);
+            while ((length = inStream.read(buffer)) != -1) {
+                stream.write(buffer, 0, length);
             }
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getContext(),"Loaded",Toast.LENGTH_LONG).show();
-        }
-        catch (FileNotFoundException e) {
+            Toast.makeText(getContext(), "Loaded", Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return e.toString();
         }
         return text;

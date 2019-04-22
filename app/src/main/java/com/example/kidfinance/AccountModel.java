@@ -1,7 +1,5 @@
 package com.example.kidfinance;
 
-import android.net.Uri;
-
 public class AccountModel {
     private String account_name;
     private int account_gender;

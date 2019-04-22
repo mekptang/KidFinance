@@ -25,7 +25,7 @@ public class AchievementModel {
         return this.achievement_description;
     }
 
-    public int getAchievementSuccess(){
+    public int getAchievementSuccess() {
         return this.achievement_success;
     }
 }

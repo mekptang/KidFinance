@@ -53,9 +53,8 @@ public class AchievementFragment extends Fragment {
                 achievements_list.add(current_achievement);
             }
 
-            Toast.makeText(getContext(),"Achievement File Loaded Successfully!", Toast.LENGTH_LONG).show();
-        }
-        else {
+            Toast.makeText(getContext(), "Achievement File Loaded Successfully!", Toast.LENGTH_LONG).show();
+        } else {
             // If achievement_list.txt does not exist in local storage:
             // Declare arrays to store achievement info + Store the information to achievements_list
             int[] achievement_logo = {R.drawable.achievement_calendar, R.drawable.achievement_calendar, R.drawable.achievement_calendar,
@@ -137,17 +136,15 @@ public class AchievementFragment extends Fragment {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int length = -1;
-            while((length = inStream.read(buffer))!=-1) {
-                stream.write(buffer,0,length);
+            while ((length = inStream.read(buffer)) != -1) {
+                stream.write(buffer, 0, length);
             }
             stream.close();
             inStream.close();
             text = stream.toString();
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return e.toString();
         }
         return text;
@@ -158,8 +155,7 @@ public class AchievementFragment extends Fragment {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(fileName, Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }

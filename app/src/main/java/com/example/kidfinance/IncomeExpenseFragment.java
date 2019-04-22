@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -118,47 +117,38 @@ public class IncomeExpenseFragment extends Fragment {
                     if (record_exp == true) {
                         incomeType = "";
                         expenseType = expenseTypeList[0];
-                    }
-                    else {
+                    } else {
                         incomeType = incomeTypeList[0];
                     }
-                }
-                else if (checkedId == R.id.tbtn_2) {
+                } else if (checkedId == R.id.tbtn_2) {
                     if (record_exp == true) {
                         incomeType = "";
                         expenseType = expenseTypeList[1];
-                    }
-                    else {
+                    } else {
                         incomeType = incomeTypeList[1];
                         expenseType = "";
                     }
-                }
-                else if (checkedId == R.id.tbtn_3) {
+                } else if (checkedId == R.id.tbtn_3) {
                     if (record_exp == true) {
                         incomeType = "";
                         expenseType = expenseTypeList[2];
-                    }
-                    else {
+                    } else {
                         incomeType = incomeTypeList[2];
                         expenseType = "";
                     }
-                }
-                else if (checkedId == R.id.tbtn_4) {
+                } else if (checkedId == R.id.tbtn_4) {
                     if (record_exp == true) {
                         incomeType = "";
                         expenseType = expenseTypeList[3];
-                    }
-                    else {
+                    } else {
                         incomeType = incomeTypeList[3];
                         expenseType = "";
                     }
-                }
-                else if (checkedId == R.id.tbtn_5) {
+                } else if (checkedId == R.id.tbtn_5) {
                     if (record_exp == true) {
                         incomeType = "";
                         expenseType = expenseTypeList[4];
-                    }
-                    else {
+                    } else {
                         incomeType = incomeTypeList[4];
                         expenseType = "";
                     }
@@ -168,13 +158,13 @@ public class IncomeExpenseFragment extends Fragment {
 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             String confirmMessage = "";
+
             @Override
             public void onClick(View v) {
-                if (record_exp && checkExpenseInput()){
+                if (record_exp && checkExpenseInput()) {
                     confirmMessage = "Expense: $" + input_amount.getText().toString();
                     confirmPopUp(confirmMessage, -1 * Float.valueOf(input_amount.getText().toString()));
-                }
-                else if (!record_exp && checkIncomeInput()){
+                } else if (!record_exp && checkIncomeInput()) {
                     confirmMessage = "Income: $" + input_amount.getText().toString();
                     confirmPopUp(confirmMessage, Float.valueOf(input_amount.getText().toString()));
                 }
@@ -184,21 +174,18 @@ public class IncomeExpenseFragment extends Fragment {
         return view;
     }
 
-    private boolean checkExpenseInput(){
+    private boolean checkExpenseInput() {
         if (radGp_type.getCheckedRadioButtonId() == -1) {
             Toast.makeText(getContext(), "Type is empty!", Toast.LENGTH_SHORT).show();
             return false;
-        }
-        else {
+        } else {
             if (input_amount.getText().toString() == "") {
                 Toast.makeText(getContext(), "Amount is empty!", Toast.LENGTH_SHORT).show();
                 return false;
-            }
-            else if (Integer.parseInt(input_amount.getText().toString()) <= 0) {
+            } else if (Integer.parseInt(input_amount.getText().toString()) <= 0) {
                 Toast.makeText(getContext(), "Expense should not be zero or negative!", Toast.LENGTH_SHORT).show();
                 return false;
-            }
-            else {
+            } else {
                 return true;
             }
         }
@@ -208,23 +195,20 @@ public class IncomeExpenseFragment extends Fragment {
         if (radGp_type.getCheckedRadioButtonId() == -1) {
             Toast.makeText(getContext(), "Type is empty!", Toast.LENGTH_SHORT).show();
             return false;
-        }
-        else {
+        } else {
             if (input_amount.getText().toString() == "") {
                 Toast.makeText(getContext(), "Amount is empty!", Toast.LENGTH_SHORT).show();
                 return false;
-            }
-            else if (Integer.parseInt(input_amount.getText().toString()) <= 0) {
+            } else if (Integer.parseInt(input_amount.getText().toString()) <= 0) {
                 Toast.makeText(getContext(), "Income should not be zero or negative!", Toast.LENGTH_SHORT).show();
                 return false;
-            }
-            else {
+            } else {
                 return true;
             }
         }
     }
 
-    private void confirmPopUp(String msg, final float value){
+    private void confirmPopUp(String msg, final float value) {
         new AlertDialog.Builder(getContext())
                 .setTitle("Confirm")
                 .setMessage(msg)
@@ -250,43 +234,60 @@ public class IncomeExpenseFragment extends Fragment {
                             }
                             JsonArray jsonArray = new JsonParser().parse(json).getAsJsonArray();
 
-                            Type listType = new TypeToken<ArrayList<ExpenseData>>(){}.getType();
+                            Type listType = new TypeToken<ArrayList<ExpenseData>>() {
+                            }.getType();
                             ArrayList<ExpenseData> expenseDataList = new Gson().fromJson(jsonArray, listType);
 
                             ExpenseData ed = new ExpenseData(Float.toString(value), expenseType, input_remarks.getText().toString());
                             expenseDataList.add(ed);
 
                             String listSerializedToJson = new Gson().toJson(expenseDataList);
-                            Toast.makeText(getContext(),listSerializedToJson,Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), listSerializedToJson, Toast.LENGTH_LONG).show();
                             writeToFile(listSerializedToJson, getContext(), "expense_record.txt");
 
-                            FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment());
-                            ft.commit();
-                        }
-                        else{
+                            // FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment());
+                            // ft.commit();
+                        } else {
                             touchFile("income_record.txt");
 
                             String json = loadTextFile("income_record.txt");
-                            if(json == ""){
+                            if (json == "") {
                                 json = "[]";
                             }
                             JsonArray jsonArray = new JsonParser().parse(json).getAsJsonArray();
 
-                            Type listType = new TypeToken<ArrayList<IncomeData>>(){}.getType();
+                            Type listType = new TypeToken<ArrayList<IncomeData>>() {
+                            }.getType();
                             ArrayList<IncomeData> incomeDataList = new Gson().fromJson(jsonArray, listType);
 
                             IncomeData id = new IncomeData(Float.toString(value), incomeType, input_remarks.getText().toString());
                             incomeDataList.add(id);
 
                             String listSerializedToJson = new Gson().toJson(incomeDataList);
-                            Toast.makeText(getContext(),listSerializedToJson,Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), listSerializedToJson, Toast.LENGTH_LONG).show();
                             writeToFile(listSerializedToJson, getContext(), "income_record.txt");
-
-                            FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment());
-                            ft.commit();
                         }
+                        float target = Float.parseFloat(loadTextFile("kf_target_money_config.txt"));
+                        if (savingVal >= target)
+                            achievePop();
+                        else
+                            getFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProgessFragment()).commit();
                     }
                 }).setNegativeButton(android.R.string.no, null).show();
+    }
+
+    private void achievePop() {
+        new AlertDialog.Builder(getContext())
+                .setMessage("Congratulations!\n" +
+                        "You achieved your latest target!\n" +
+                        "Go to get award now?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, new AwardFragment()).commit();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
     }
 
     public String loadTextFile(String fileName) {
@@ -296,18 +297,16 @@ public class IncomeExpenseFragment extends Fragment {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int length = -1;
-            while((length = inStream.read(buffer))!=-1) {
-                stream.write(buffer,0,length);
+            while ((length = inStream.read(buffer)) != -1) {
+                stream.write(buffer, 0, length);
             }
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getContext(),"Loaded",Toast.LENGTH_LONG).show();
-        }
-        catch (FileNotFoundException e) {
+            Toast.makeText(getContext(), "Loaded", Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             return e.toString();
         }
         return text;
@@ -318,19 +317,17 @@ public class IncomeExpenseFragment extends Fragment {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(fileName, Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 
-    private void touchFile(String file){
+    private void touchFile(String file) {
         File f = new File(file);
         if (!f.exists()) {
             try {
                 f.createNewFile();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

@@ -13,22 +13,54 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.ArrayList;
 
-public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemListViewHolder>{
+public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemListViewHolder> {
     private ArrayList<ItemListSample> mItemList;
     private OnItemClickListener mListener;
 
-    public interface OnItemClickListener{
-        void onItemClick(int position);
-        void onDeleteClick(int position);
-        void onAddItemClick(int position);
-        void onDropItemClick(int position);
+    public ItemListAdapter(ArrayList<ItemListSample> itemList) {
+        mItemList = itemList;
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener){
+    public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
 
-    public static class ItemListViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public ItemListViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list_set_target, viewGroup, false);
+        ItemListViewHolder lvh = new ItemListViewHolder(v, mListener);
+        return lvh;
+    }
+
+    @Override
+    public void onBindViewHolder(ItemListViewHolder itemListViewHolder, int i) {
+        ItemListSample currentItem = mItemList.get(i);
+        File imgFile = new File(currentItem.getImageResource());
+        if (imgFile.exists()) {
+            System.out.println(currentItem.getImageResource());
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            itemListViewHolder.mImageView.setImageBitmap(myBitmap);
+        }
+        itemListViewHolder.mTextView1.setText(currentItem.getItemName());
+        itemListViewHolder.mTextView2.setText(String.valueOf(currentItem.getNumberOfItem()));
+    }
+
+    @Override
+    public int getItemCount() {
+        return mItemList.size();
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+
+        void onDeleteClick(int position);
+
+        void onAddItemClick(int position);
+
+        void onDropItemClick(int position);
+    }
+
+    public static class ItemListViewHolder extends RecyclerView.ViewHolder {
         public ImageView mImageView;
         public TextView mTextView1;
         public TextView mTextView2;
@@ -45,12 +77,12 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
             mAddItem = itemView.findViewById(R.id.plus_item);
             mDropItem = itemView.findViewById(R.id.minus_item);
 
-            itemView.setOnClickListener(new View.OnClickListener(){
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
-                    if(listener != null){
+                public void onClick(View v) {
+                    if (listener != null) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             listener.onItemClick(position);
                         }
                     }
@@ -60,33 +92,33 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
             mDeleteImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listener != null){
+                    if (listener != null) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             listener.onDeleteClick(position);
                         }
                     }
                 }
             });
 
-            mAddItem.setOnClickListener(new View.OnClickListener(){
+            mAddItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listener != null){
+                    if (listener != null) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             listener.onAddItemClick(position);
                         }
                     }
                 }
             });
 
-            mDropItem.setOnClickListener(new View.OnClickListener(){
+            mDropItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listener != null){
+                    if (listener != null) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             listener.onDropItemClick(position);
                         }
                     }
@@ -94,34 +126,5 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
             });
 
         }
-    }
-
-    public ItemListAdapter(ArrayList<ItemListSample> itemList){
-        mItemList = itemList;
-    }
-
-    @Override
-    public ItemListViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_list_set_target, viewGroup, false);
-        ItemListViewHolder lvh = new ItemListViewHolder(v, mListener);
-        return lvh;
-    }
-
-    @Override
-    public void onBindViewHolder(ItemListViewHolder itemListViewHolder, int i) {
-        ItemListSample currentItem = mItemList.get(i);
-        File imgFile = new  File(currentItem.getImageResource());
-        if(imgFile.exists()){
-            System.out.println(currentItem.getImageResource());
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            itemListViewHolder.mImageView.setImageBitmap(myBitmap);
-        }
-        itemListViewHolder.mTextView1.setText(currentItem.getItemName());
-        itemListViewHolder.mTextView2.setText(String.valueOf(currentItem.getNumberOfItem()));
-    }
-
-    @Override
-    public int getItemCount() {
-        return mItemList.size();
     }
 }

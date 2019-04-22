@@ -49,8 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -85,23 +84,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_achievement) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AchievementFragment()).commit();
-        }
-        else if (id == R.id.nav_award) {
+        } else if (id == R.id.nav_award) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AwardFragment()).commit();
-        }
-        else if (id == R.id.nav_progress) {
+        } else if (id == R.id.nav_progress) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProgessFragment()).commit();
-        }
-        else if (id == R.id.nav_record) {
+        } else if (id == R.id.nav_record) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecordFragment()).commit();
-        }
-        else if (id == R.id.nav_setTarget) {
+        } else if (id == R.id.nav_setTarget) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SetTargetFragment()).commit();
-        }
-        else if (id == R.id.nav_incomeExpense) {
+        } else if (id == R.id.nav_incomeExpense) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new IncomeExpenseFragment()).commit();
-        }
-        else if (id == R.id.nav_setting) {
+        } else if (id == R.id.nav_setting) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingFragment()).commit();
         }
 
@@ -127,8 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             account_name_view.setText(account_name);
             account_icon_view.setImageURI(icon_uri);
-        }
-        else {
+        } else {
             Toast.makeText(getApplicationContext(), "Cannot detect/read account.txt in local storage!", Toast.LENGTH_LONG).show();
         }
     }
@@ -151,18 +143,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int length = -1;
-            while((length = inStream.read(buffer))!=-1) {
-                stream.write(buffer,0,length);
+            while ((length = inStream.read(buffer)) != -1) {
+                stream.write(buffer, 0, length);
             }
             stream.close();
             inStream.close();
             text = stream.toString();
-            Toast.makeText(getApplicationContext(),"Loaded",Toast.LENGTH_LONG).show();
-        }
-        catch (FileNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "Loaded", Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return e.toString();
         }
 
