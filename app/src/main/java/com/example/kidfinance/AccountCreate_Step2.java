@@ -40,6 +40,7 @@ public class AccountCreate_Step2 extends AppCompatActivity {
     String name;
     int age;
     Uri icon_uri;
+    String icon_path;
     String icon_uri_string;
     String account_file_name = "account.txt";
 
@@ -87,7 +88,7 @@ public class AccountCreate_Step2 extends AppCompatActivity {
                         icon_uri_string = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.drawable.create_account_step1_girl).toString();
                     }
 
-                    AccountModel new_account = new AccountModel(name, gender, age, icon_uri_string);
+                    AccountModel new_account = new AccountModel(name, gender, age, icon_path);
                     String listSerializedToJson = new Gson().toJson(new_account);
                     writeToFile(listSerializedToJson, getApplicationContext(), account_file_name);
                     Toast.makeText(getApplicationContext(), "Account created successfully!", Toast.LENGTH_LONG).show();
@@ -112,6 +113,7 @@ public class AccountCreate_Step2 extends AppCompatActivity {
             int cursor;
 
             icon_uri = data.getData();
+            icon_path = getPath(icon_uri);
             icon_uri_string = icon_uri.toString();
             icon_button.setImageURI(icon_uri);
 

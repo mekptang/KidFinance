@@ -22,7 +22,8 @@ public class AccountCreate_Step0 extends AppCompatActivity {
         if (fileExists(getApplicationContext(), account_file_name) == true) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
-        } else {
+        }
+        else {
             setContentView(R.layout.account_create_step0);
 
             ImageButton next_button = (ImageButton) findViewById(R.id.create_account_step0_next);
@@ -34,6 +35,7 @@ public class AccountCreate_Step0 extends AppCompatActivity {
             });
         }
     }
+
 
     // Check if account.txt exists
     public boolean fileExists(Context context, String filename) {

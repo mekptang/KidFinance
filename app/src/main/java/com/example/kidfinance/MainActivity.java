@@ -1,6 +1,8 @@
 package com.example.kidfinance;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -115,12 +117,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String json = loadTextFile(account_file_name);
             JsonObject all = new JsonParser().parse(json).getAsJsonObject();
 
+            File imgFile = new File(all.get("account_icon_uri").getAsString());
+            Bitmap myBitmap;
+            myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
             String account_name = all.get("account_name").getAsString();
-            Uri icon_uri = Uri.parse(all.get("account_icon_uri").getAsString());
+            // Uri icon_uri = Uri.parse(all.get("account_icon_uri").getAsString());
 
             account_name_view.setText(account_name);
-            account_icon_view.setImageURI(icon_uri);
-        } else {
+            account_icon_view.setImageBitmap(myBitmap);
+        }
+        else {
             Toast.makeText(getApplicationContext(), "Cannot detect/read account.txt in local storage!", Toast.LENGTH_LONG).show();
         }
     }
