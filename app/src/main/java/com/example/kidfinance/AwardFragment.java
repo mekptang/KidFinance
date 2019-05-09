@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-// import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -33,6 +32,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+// import android.widget.Toast;
 
 public class AwardFragment extends Fragment {
 
@@ -68,6 +69,8 @@ public class AwardFragment extends Fragment {
             }
             current_savings = Float.parseFloat(loadTextFile("kf_saving_money_config.txt"));
             target_savings = Float.parseFloat(loadTextFile("kf_target_money_config.txt"));
+            System.out.println(current_savings);
+            System.out.println(target_savings);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,7 +107,8 @@ public class AwardFragment extends Fragment {
         });
 
         setAwardBtn = view.findViewById(R.id.setAwardBtn);
-        if ((current_savings < target_savings) || (awards.size() == 0)) {
+        if ((current_savings < target_savings) || (awards.size() == 0) ||
+                (current_savings ==0 && target_savings==0)) {
             setAwardBtn.setEnabled(false);
             setAwardBtn.setBackgroundResource(R.drawable.round_disable);
         }
