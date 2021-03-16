@@ -1,2 +1,3 @@
 # KidFinance
-:)
+COMP3330 Interactive Mobile Application Design and Programming
+Group Project
